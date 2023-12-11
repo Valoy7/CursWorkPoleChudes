@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="sample.game.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.HelloController">
+   <children>
+      <AnchorPane layoutY="125.0" prefHeight="275.0" prefWidth="700.0" style="-fx-background-color: #6E5160;">
+         <children>
+            <TextField fx:id="login_field" layoutX="275.0" layoutY="84.0" promptText="Логин" />
+            <TextField fx:id="password_field" layoutX="275.0" layoutY="125.0" promptText="Пароль" />
+            <Label layoutX="275.0" layoutY="41.0" prefHeight="31.0" prefWidth="150.0" text="Авторизация" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="26.0" />
+               </font>
+            </Label>
+            <Button fx:id="authLogInButton" layoutX="303.0" layoutY="164.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Войти" />
+         </children></AnchorPane>
+      <Label layoutX="247.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
+         <font>
+            <Font name="Corbel" size="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="signInButton" layoutX="558.0" layoutY="20.0" mnemonicParsing="false" text="Зарегистрироваться" />
+      <Button fx:id="adminLogInButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Администратор" />
+   </children>
+</AnchorPane>
