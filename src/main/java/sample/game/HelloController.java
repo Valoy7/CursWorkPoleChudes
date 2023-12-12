@@ -15,7 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import sample.game.animations.Shake;
 public class HelloController {
 
     @FXML
@@ -113,6 +113,11 @@ public class HelloController {
         }
         if(counter >= 1) {
             System.out.println("Succsess!");
+        } else {
+            Shake userLoginAnim = new Shake(login_field);
+            Shake userPasswordAnim = new Shake(password_field);
+            userLoginAnim.playAnim();
+            userPasswordAnim.playAnim();
         }
     }
 
