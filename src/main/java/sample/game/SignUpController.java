@@ -2,6 +2,8 @@ package sample.game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import DB.DatabaseHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -28,7 +30,11 @@ public class SignUpController {
 
     @FXML
     void initialize() {
-
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        signUpButton.setOnAction(actionEvent -> {
+            dbHandler.signUpUser(login_field_register.getText(),
+                    password_field_register.getText());
+        });
     }
 
 }
