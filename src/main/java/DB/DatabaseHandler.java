@@ -18,6 +18,7 @@ public class DatabaseHandler extends Configs {
         return dbConnection;
     }
 
+    //запись в таблицу users2
     public  void signUpUser(String login, String password) {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" +
                 Const.USER_NAME + "," + Const.USER_PASS + ")" +
