@@ -24,7 +24,7 @@
             <Font name="Corbel" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="signInButton" layoutX="558.0" layoutY="20.0" mnemonicParsing="false" text="Зарегистрироваться" />
+      <Button fx:id="signUpButton" layoutX="558.0" layoutY="20.0" mnemonicParsing="false" text="Зарегистрироваться" />
       <Button fx:id="adminLogInButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Администратор" />
    </children>
 </AnchorPane>
