@@ -66,6 +66,27 @@ public class HelloController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
+
+        adminLogInButton.setOnAction(actionEvent -> {
+            adminLogInButton.getScene().getWindow().hide();
+            // всё это для отображения нужного окна
+            FXMLLoader loader =  new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/game/adminLogIn.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            // root параметр, который нужно подключить
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        });
+
+
     }
 
     private void loginUser(String loginText, String loginPassword) {
