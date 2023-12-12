@@ -40,23 +40,23 @@ public class AdminLogInController {
 
     @FXML
     void initialize() {
-
         //кнопка "войти"
         authLogInButton.setOnAction(actionEvent -> {
             String loginText = login_field.getText().trim();
             String loginPassword = password_field.getText().trim();
 
-            if(!loginText.equals("") && !loginPassword.equals("")) {
+            if (!loginText.equals("") && !loginPassword.equals("")) {
                 loginAdmin(loginText, loginPassword);
             } else {
-                System.out.println("Login and password is empty");
+                System.out.println("Login and password are empty");
             }
         });
+
         //возвращение в лобби авторизации пользователя
         signUp_ReturnLobbyButton.setOnAction(actionEvent -> {
             signUp_ReturnLobbyButton.getScene().getWindow().hide();
             // всё это для отображения нужного окна
-            FXMLLoader loader =  new FXMLLoader();
+            FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/sample/game/hello-view.fxml"));
 
             try {
@@ -74,10 +74,23 @@ public class AdminLogInController {
     }
 
     private void loginAdmin(String loginText, String loginPassword) {
-
         if (AdminData.checkCredentials(loginText, loginPassword)) {
-            System.out.println("Succsess!");
-            // Введенные данные совпадают с административными данными
+            authLogInButton.getScene().getWindow().hide();
+            // всё это для отображения нужного окна
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/game/adminCommand.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            // root параметр, который нужно подключить
+            stage.setScene(new Scene(root));
+            stage.show();
         } else {
             Shake userLoginAnim = new Shake(login_field);
             Shake userPasswordAnim = new Shake(password_field);
@@ -85,5 +98,4 @@ public class AdminLogInController {
             userPasswordAnim.playAnim();
         }
     }
-
 }
