@@ -40,6 +40,7 @@ public class AdminLogInController {
 
     @FXML
     void initialize() {
+
         //кнопка "войти"
         authLogInButton.setOnAction(actionEvent -> {
             String loginText = login_field.getText().trim();

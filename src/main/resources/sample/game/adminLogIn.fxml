@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.AdminLogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.AdminLogInController">
     <children>
-        <AnchorPane layoutY="125.0" prefHeight="275.0" prefWidth="700.0" style="-fx-background-color: #6E5160;">
+        <AnchorPane layoutY="125.0" prefHeight="275.0" prefWidth="700.0" style="-fx-background-color: #6E5160;" AnchorPane.bottomAnchor="-0.19999999999998863" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="124.80000000000001">
             <children>
                 <TextField fx:id="login_field" layoutX="275.0" layoutY="84.0" promptText="Логин" />
                 <Label layoutX="275.0" layoutY="14.0" prefHeight="31.0" prefWidth="150.0" text="Авторизация" textFill="#d1c2c2">
