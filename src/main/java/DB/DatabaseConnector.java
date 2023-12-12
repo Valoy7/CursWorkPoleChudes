@@ -4,12 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnector {
-    private static final String URL = "jdbc:mysql://localhost:3306/test";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+public class DatabaseHandler extends Configs {
+    Connection dbConnection;
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    public Connection getDbConnection()
+            throws ClassNotFoundException, SQLException {
+        String connectionString = "jdbc:/mysql//" + dbHost + ":"
+                + dbPort + "/" + dbName;
+        Class.forName("com.mysql.jdbc.Driver");
+        dbConnection = DriverManager.getConnection(connectionString,
+                dbUser, dbPass);
+        return dbConnection;
     }
 }

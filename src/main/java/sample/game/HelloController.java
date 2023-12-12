@@ -36,6 +36,18 @@ public class HelloController {
 
     @FXML
     void initialize() {
+    //кнопка "войти"
+        authLogInButton.setOnAction(actionEvent -> {
+            String loginText = login_field.getText().trim();
+            String loginPassword = password_field.getText().trim();
+
+            if(!loginText.equals("") && !loginPassword.equals("")) {
+                loginUser(loginText, loginPassword);
+            } else {
+                System.out.println("Login and password is empty");
+            }
+        });
+        //кнопка "зарегистрироваться"
         signUpButton.setOnAction(actionEvent -> {
             signUpButton.getScene().getWindow().hide();
             // всё это для отображения нужного окна
@@ -54,6 +66,10 @@ public class HelloController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
+    }
+
+    private void loginUser(String loginText, String loginPassword) {
+
     }
 
 }

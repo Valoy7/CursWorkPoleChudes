@@ -17,7 +17,7 @@
                         <Font name="Corbel" size="26.0" />
                     </font>
                 </Label>
-                <Button fx:id="signInButton" layoutX="282.0" layoutY="163.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Зарегистрироваться" />
+                <Button fx:id="signUpButton" layoutX="282.0" layoutY="163.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Зарегистрироваться" />
             </children></AnchorPane>
         <Label layoutX="247.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>

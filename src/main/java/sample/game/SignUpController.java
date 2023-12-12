@@ -21,7 +21,7 @@ public class SignUpController {
     private TextField password_field_register;
 
     @FXML
-    private Button signInButton;
+    private Button signUpButton;
 
     @FXML
     private Button signUp_ReturnLobbyButton;
