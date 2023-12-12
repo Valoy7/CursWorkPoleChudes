@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
@@ -14,7 +15,6 @@
         <AnchorPane layoutY="125.0" prefHeight="275.0" prefWidth="700.0" style="-fx-background-color: #6E5160;">
             <children>
                 <TextField fx:id="login_field" layoutX="275.0" layoutY="84.0" promptText="Логин" />
-                <TextField fx:id="password_field" layoutX="275.0" layoutY="125.0" promptText="Пароль" />
                 <Label layoutX="275.0" layoutY="14.0" prefHeight="31.0" prefWidth="150.0" text="Авторизация" textFill="#d1c2c2">
                     <font>
                         <Font name="Corbel" size="26.0" />
@@ -34,6 +34,7 @@
                   <Blend />
                </effect>
             </ImageView>
+            <PasswordField fx:id="password_field" layoutX="274.0" layoutY="124.0" prefHeight="26.0" prefWidth="150.0" promptText="Пароль" />
             </children></AnchorPane>
         <Label layoutX="247.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>

@@ -2,7 +2,13 @@ package sample.game;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import DB.AdminData;
+import DB.DatabaseHandler;
+import DB.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.game.animations.Shake;
 
 public class AdminLogInController {
 
@@ -33,7 +40,18 @@ public class AdminLogInController {
 
     @FXML
     void initialize() {
+        //кнопка "войти"
+        authLogInButton.setOnAction(actionEvent -> {
+            String loginText = login_field.getText().trim();
+            String loginPassword = password_field.getText().trim();
 
+            if(!loginText.equals("") && !loginPassword.equals("")) {
+                loginAdmin(loginText, loginPassword);
+            } else {
+                System.out.println("Login and password is empty");
+            }
+        });
+        //возвращение в лобби авторизации пользователя
         signUp_ReturnLobbyButton.setOnAction(actionEvent -> {
             signUp_ReturnLobbyButton.getScene().getWindow().hide();
             // всё это для отображения нужного окна
@@ -52,6 +70,19 @@ public class AdminLogInController {
             stage.setScene(new Scene(root));
             stage.show();
         });
+    }
+
+    private void loginAdmin(String loginText, String loginPassword) {
+
+        if (AdminData.checkCredentials(loginText, loginPassword)) {
+            System.out.println("Succsess!");
+            // Введенные данные совпадают с административными данными
+        } else {
+            Shake userLoginAnim = new Shake(login_field);
+            Shake userPasswordAnim = new Shake(password_field);
+            userLoginAnim.playAnim();
+            userPasswordAnim.playAnim();
+        }
     }
 
 }
