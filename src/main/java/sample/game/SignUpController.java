@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import DB.DatabaseHandler;
+import DB.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,10 +36,11 @@ public class SignUpController {
 
     @FXML
     void initialize() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
+
         signUpButton.setOnAction(actionEvent -> {
-            dbHandler.signUpUser(login_field_register.getText(),
-                    password_field_register.getText());
+
+            signUpNewUser();
+
         });
         signUp_ReturnLobbyButton.setOnAction(actionEvent -> {
             signUp_ReturnLobbyButton.getScene().getWindow().hide();
@@ -58,6 +60,16 @@ public class SignUpController {
             stage.setScene(new Scene(root));
             stage.show();
         });
+    }
+
+    private void signUpNewUser() {
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        String username = login_field_register.getText();
+        String password = password_field_register.getText();
+
+        User user = new User(username, password);
+
+        dbHandler.signUpUser(user);
     }
 
 }

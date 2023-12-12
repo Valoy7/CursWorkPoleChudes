@@ -19,15 +19,15 @@ public class DatabaseHandler extends Configs {
     }
 
     //запись в таблицу users2
-    public  void signUpUser(String login, String password) {
+    public  void signUpUser(User user) {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" +
                 Const.USER_NAME + "," + Const.USER_PASS + ")" +
                 "VALUE(?, ?)";
 
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
-            prSt.setString(1, login);
-            prSt.setString(2, password);
+            prSt.setString(1, user.getUsername());
+            prSt.setString(2, user.getPassword());
 
             prSt.executeUpdate();
         } catch (SQLException e) {
