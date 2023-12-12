@@ -35,6 +35,7 @@ public class SignUpController {
             dbHandler.signUpUser(login_field_register.getText(),
                     password_field_register.getText());
         });
+
     }
 
 }
