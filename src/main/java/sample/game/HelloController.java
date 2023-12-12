@@ -54,22 +54,7 @@ public class HelloController {
         });
         //кнопка "зарегистрироваться"
         signUpButton.setOnAction(actionEvent -> {
-            signUpButton.getScene().getWindow().hide();
-            // всё это для отображения нужного окна
-            FXMLLoader loader =  new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/game/SignUp.fxml"));
-
-            try {
-                loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            // root параметр, который нужно подключить
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            openNewScene("/sample/game/SignUp.fxml");
         });
 
         adminLogInButton.setOnAction(actionEvent -> {
@@ -112,7 +97,7 @@ public class HelloController {
             counter++;
         }
         if(counter >= 1) {
-            System.out.println("Succsess!");
+            openNewScene("/sample/game/menuGame.fxml");
         } else {
             Shake userLoginAnim = new Shake(login_field);
             Shake userPasswordAnim = new Shake(password_field);
@@ -121,4 +106,22 @@ public class HelloController {
         }
     }
 
+    public void openNewScene(String window) {
+        signUpButton.getScene().getWindow().hide();
+        // всё это для отображения нужного окна
+        FXMLLoader loader =  new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        // root параметр, который нужно подключить
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+    }
 }
