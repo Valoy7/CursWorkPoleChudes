@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import DB.DatabaseHandler;
-import DB.Quest;
-import DB.User;
+import DB.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -38,7 +36,7 @@ public class AdminFuncController {
     private ComboBox<String> categoryComboBox;
 
     @FXML
-    private ComboBox<String> categoryDeleteComboBox;
+    private ComboBox<Category> categoryDeleteComboBox;
 
     @FXML
     private TableColumn<Quest, String> category_name_Column;
@@ -77,10 +75,10 @@ public class AdminFuncController {
     private Button insertQuestButton;
 
     @FXML
-    private Button insertQuestButton1;
+    private Button deleteCategoryButton;
 
     @FXML
-    private Button insertQuestButton2;
+    private Button deleteComplexityButton;
 
     @FXML
     private TableColumn<String, String> loginUsers_Column;
@@ -160,10 +158,20 @@ public class AdminFuncController {
             int categoryId = getCategoryId(selectedCategory);
             int complexityId = getComplexityId(selectedComplexity);
 
-            // Вызываем метод для вставки данных в БД
-            DatabaseHandler databaseHandler = new DatabaseHandler();
-            databaseHandler.insertQuest(insertQuest, insertAnswer, String.valueOf(complexityId), String.valueOf(categoryId));
-            updateTableQuests();
+            // Проверяем, что категория и сложность существуют
+            if (categoryId != -1 && complexityId != -1) {
+                error_field.setText("");
+                // Вызываем метод для вставки данных в БД
+                DatabaseHandler databaseHandler = new DatabaseHandler();
+                databaseHandler.insertQuest(insertQuest, insertAnswer, String.valueOf(complexityId), String.valueOf(categoryId));
+                updateTableQuests();
+                // Обновляем выпадающий список категорий
+                fillComboBoxes();
+            } else {
+                // Если категория или сложность не существует, выводим сообщение об ошибке
+                error_field.setText("Ошибка добавления! Несуществующая категория или сложность.");
+            }
+
         });
 
         insertCategoryButton.setOnAction(actionEvent -> {
@@ -175,6 +183,21 @@ public class AdminFuncController {
 
             // Обновляем выпадающий список категорий
             fillComboBoxes();
+        });
+
+        deleteCategoryButton.setOnAction(actionEvent -> {
+            Category selectedCategory = categoryDeleteComboBox.getValue();
+
+            if (selectedCategory != null) {
+                // Вызываем метод для удаления выбранной категории из БД
+                DatabaseHandler databaseHandler = new DatabaseHandler();
+                databaseHandler.deleteCategory(selectedCategory);
+
+                // Обновляем выпадающий список категорий
+                fillComboBoxes();
+                // Обновляем данные таблицы
+                updateTableQuests();
+            }
         });
 
         insertComplexityButton.setOnAction(actionEvent -> {
@@ -212,14 +235,14 @@ public class AdminFuncController {
         // Очищаем текущие элементы в выпадающих списках
         categoryComboBox.getItems().clear();
         complexityComboBox.getItems().clear();
-
+        categoryDeleteComboBox.getItems().clear();
         try {
             DatabaseHandler databaseHandler = new DatabaseHandler();
 
             // Заполняем выпадающий список categoryComboBox данными из БД
             ResultSet categoryResultSet = databaseHandler.getAllCategories();
             while (categoryResultSet.next()) {
-                String categoryName = categoryResultSet.getString("category_name");
+                String categoryName = categoryResultSet.getString(Const.CATEGORY_NAME);
 
                 // Проверяем, не содержится ли уже такая категория в списке
                 if (!categoryComboBox.getItems().contains(categoryName)) {
@@ -227,10 +250,22 @@ public class AdminFuncController {
                 }
             }
 
+            // Заполняем выпадающий список categoryDeleteComboBox данными из БД
+            ResultSet categoryDeleteResultSet = databaseHandler.getAllCategories();
+            while (categoryDeleteResultSet.next()) {
+
+                Category categoryName = new Category(categoryDeleteResultSet.getString(Const.CATEGORY_NAME));
+
+                // Проверяем, не содержится ли уже такая категория в списке
+                if (!categoryDeleteComboBox.getItems().contains(categoryName)) {
+                    categoryDeleteComboBox.getItems().add(categoryName);
+                }
+            }
+
             // Заполняем выпадающий список complexityComboBox данными из БД
             ResultSet complexityResultSet = databaseHandler.getAllComplexities();
             while (complexityResultSet.next()) {
-                String complexityName = complexityResultSet.getString("complexity_name");
+                String complexityName = complexityResultSet.getString(Const.COMPLEXITY_NAME);
 
                 // Проверяем, не содержится ли уже такая сложность в списке
                 if (!complexityComboBox.getItems().contains(complexityName)) {
@@ -248,7 +283,7 @@ public class AdminFuncController {
             DatabaseHandler databaseHandler = new DatabaseHandler();
             ResultSet categoryResultSet = databaseHandler.getCategoryIdByName(categoryName);
             if (categoryResultSet.next()) {
-                return categoryResultSet.getInt("idcategory");
+                return categoryResultSet.getInt(Const.CATEGORY_ID);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -262,7 +297,7 @@ public class AdminFuncController {
             DatabaseHandler databaseHandler = new DatabaseHandler();
             ResultSet complexityResultSet = databaseHandler.getComplexityIdByName(complexityName);
             if (complexityResultSet.next()) {
-                return complexityResultSet.getInt("idcomplexity");
+                return complexityResultSet.getInt(Const.COMPLEXITY_ID);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -278,10 +313,10 @@ public class AdminFuncController {
 
             ResultSet questResultSet = databaseHandler.getAllQuests();
             while (questResultSet.next()) {
-                String quest = questResultSet.getString("quest");
-                String answer = questResultSet.getString("answer");
-                int categoryId = questResultSet.getInt("idcategory");
-                int complexityId = questResultSet.getInt("idcomplexity");
+                String quest = questResultSet.getString(Const.QUEST_TEXT);
+                String answer = questResultSet.getString(Const.ANSWER_TEXT);
+                int categoryId = questResultSet.getInt(Const.QUEST_CATEGORY_ID);
+                int complexityId = questResultSet.getInt(Const.QUEST_COMPLEXITY_ID);
 
                 // Получаем имена категории и сложности по их ID
                 String categoryName = databaseHandler.getCategoryNameById(categoryId);
@@ -303,8 +338,8 @@ public class AdminFuncController {
 
             ResultSet userResultSet = databaseHandler.getAllUsers();
             while (userResultSet.next()) {
-                String username = userResultSet.getString("username");
-                String password = userResultSet.getString("password");
+                String username = userResultSet.getString(Const.USER_NAME);
+                String password = userResultSet.getString(Const.USER_PASS);
 
                 userList.add(new User(username, password));
             }

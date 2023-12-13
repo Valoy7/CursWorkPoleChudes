@@ -273,4 +273,20 @@ public class DatabaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
+    public void deleteCategory(Category category) {
+        String deleteQuery = "DELETE FROM " + Const.CATEGORY_TABLE + " WHERE " +
+                Const.CATEGORY_NAME + " = ? ";
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, category.getCategory_name());
+
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
