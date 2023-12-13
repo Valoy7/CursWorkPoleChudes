@@ -4,7 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class InsertQuestController {
 
@@ -18,13 +20,35 @@ public class InsertQuestController {
     private Button ReturnLobbyButton;
 
     @FXML
+    private TextField answerInsert_field;
+
+    @FXML
+    private ComboBox<?> categoryComboBox;
+
+    @FXML
+    private ComboBox<?> complexityComboBox;
+
+    @FXML
     private Label error_field;
 
     @FXML
-    void initialize() {
-        assert ReturnLobbyButton != null : "fx:id=\"ReturnLobbyButton\" was not injected: check your FXML file 'insertQuest.fxml'.";
-        assert error_field != null : "fx:id=\"error_field\" was not injected: check your FXML file 'insertQuest.fxml'.";
+    private Button insertCategoryButton;
 
+    @FXML
+    private Button insertComplexityButton;
+
+    @FXML
+    private Button insertQuestButton;
+
+    @FXML
+    private TextField questInsert_field;
+
+    @FXML
+    void initialize() {
+        ReturnLobbyButton.setOnAction(actionEvent -> {
+            ReturnLobbyButton.getScene().getWindow().hide();
+            WindowManager.showHelloView();
+        });
     }
 
 }

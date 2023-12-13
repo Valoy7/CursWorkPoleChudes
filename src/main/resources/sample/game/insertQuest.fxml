@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.AdminCommandController">
+<AnchorPane style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.insertQuestController">
     <children>
         <AnchorPane layoutY="124.8" prefHeight="281.0" prefWidth="700.0" style="-fx-background-color: #6E5160;" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
             <children>
-                <Button fx:id="deleteQuestButton" layoutX="52.0" layoutY="222.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Удалить " />
-                <Label layoutX="153.0" layoutY="14.0" prefHeight="31.0" prefWidth="394.0" text="Выберите, какие действия Вы бы хотели совершить:" textFill="#cfc0c08c">
+                <Label alignment="CENTER" layoutX="152.0" layoutY="-2.0" prefHeight="31.0" prefWidth="394.0" text="Выберите, какие действия Вы бы хотели совершить:" textFill="#cfc0c08c">
                     <font>
                         <Font name="Corbel" size="17.0" />
                     </font>
                 </Label>
-                <Button fx:id="insertQuestButton" layoutX="52.0" layoutY="127.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Добавить" />
-                <Button fx:id="changeQuestButton" layoutX="53.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Изменить" />
-                <Label layoutX="14.0" layoutY="79.0" prefHeight="31.0" prefWidth="206.0" text="Редактирование вопросов:" textFill="#cfc0c08c">
+                <Label layoutX="14.0" layoutY="59.0" prefHeight="31.0" prefWidth="206.0" text="Добавать вопрос:" textFill="#cfc0c08c">
                     <font>
                         <Font name="Corbel" size="17.0" />
                     </font>
                 </Label>
-                <Label layoutX="442.0" layoutY="79.0" prefHeight="31.0" prefWidth="243.0" text="Редактирование пользователей:" textAlignment="RIGHT" textFill="#cfc0c08c">
-                    <font>
-                        <Font name="Corbel" size="17.0" />
-                    </font>
-                </Label>
-                <Button fx:id="insertUserButton" layoutX="513.0" layoutY="127.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Добавить" />
-                <Button fx:id="changeUserButton" layoutX="513.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Изменить" />
-                <Button fx:id="deleteUserButton" layoutX="513.0" layoutY="222.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Удалить " />
+            <TextField fx:id="questInsert_field" alignment="TOP_LEFT" layoutX="14.0" layoutY="91.0" prefHeight="26.0" prefWidth="672.0" promptText="Новый вопрос" />
+            <TextField fx:id="answerInsert_field" layoutX="14.0" layoutY="127.0" prefHeight="26.0" prefWidth="242.0" promptText="Ответ" />
+            <ComboBox fx:id="categoryComboBox" layoutX="267.0" layoutY="128.0" prefWidth="150.0" promptText="Категория" />
+            <ComboBox fx:id="complexityComboBox" layoutX="428.0" layoutY="127.0" prefWidth="150.0" promptText="Сложность" />
+            <Label fx:id="error_field" alignment="TOP_CENTER" layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="681.0" textAlignment="CENTER" textFill="WHITE" />
+            <TextField layoutX="14.0" layoutY="221.0" prefHeight="26.0" prefWidth="217.0" promptText="Новая категория" />
+            <Label layoutX="14.0" layoutY="189.0" prefHeight="31.0" prefWidth="206.0" text="Добавить категорию:" textFill="#cfc0c08c">
+               <font>
+                  <Font name="Corbel" size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="insertQuestButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="589.0" layoutY="128.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Добавить" />
+            <Button fx:id="insertCategoryButton" layoutX="239.0" layoutY="221.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Добавить" />
+            <Label layoutX="360.0" layoutY="189.0" prefHeight="31.0" prefWidth="206.0" text="Добавить сложность:" textFill="#cfc0c08c">
+               <font>
+                  <Font name="Corbel" size="17.0" />
+               </font>
+            </Label>
+            <TextField layoutX="360.0" layoutY="221.0" prefHeight="26.0" prefWidth="217.0" promptText="Сложность" />
+            <Button fx:id="insertComplexityButton" layoutX="590.0" layoutY="221.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Добавить" />
             </children></AnchorPane>
-        <Label layoutX="247.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="247.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>
                 <Font name="Corbel" size="40.0" />
             </font>
         </Label>
         <Button fx:id="ReturnLobbyButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Вернуться" />
-        <Label layoutX="529.0" layoutY="-2.0" prefHeight="31.0" prefWidth="170.0" text="окно администратора" textFill="#cfc0c08c">
+        <Label alignment="CENTER_RIGHT" layoutX="515.0" layoutY="17.0" prefHeight="31.0" prefWidth="170.0" text="окно администратора" textFill="#cfc0c08c">
             <font>
                 <Font name="Corbel" size="17.0" />
             </font>

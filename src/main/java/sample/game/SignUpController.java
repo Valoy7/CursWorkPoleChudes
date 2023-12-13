@@ -44,22 +44,9 @@ public class SignUpController {
         });
         signUp_ReturnLobbyButton.setOnAction(actionEvent -> {
             signUp_ReturnLobbyButton.getScene().getWindow().hide();
-            // всё это для отображения нужного окна
-            FXMLLoader loader =  new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/game/hello-view.fxml"));
-
-            try {
-                loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            // root параметр, который нужно подключить
-            stage.setScene(new Scene(root));
-            stage.show();
+            WindowManager.showHelloView();
         });
+//
     }
 
     private void signUpNewUser() {
