@@ -204,17 +204,38 @@ public class AdminFuncController {
             }
         });
 
-        insertComplexityButton.setOnAction(actionEvent -> {
-            String newComplexityName = insertComplexity_field.getText();
+        deleteComplexityButton.setOnAction(actionEvent -> {
+            String selectedComplexity = complexityDeleteComboBox.getValue();
 
-            // Вызываем метод для вставки новой сложности в БД
-            DatabaseHandler databaseHandler = new DatabaseHandler();
-            databaseHandler.insertComplexity(newComplexityName);
-            insertComplexity_field.setText("");
-            // Обновляем выпадающий список сложностей
-            fillComboBoxes();
+            if (selectedComplexity != null) {
+                // Вызываем метод для удаления выбранной категории из БД
+                DatabaseHandler databaseHandler = new DatabaseHandler();
+                databaseHandler.deleteComplexity(selectedComplexity);
+
+
+                // Обновляем выпадающий список категорий
+                fillComboBoxes();
+                // Обновляем данные таблицы
+                updateTableQuests();
+            }
         });
 
+        insertComplexityButton.setOnAction(actionEvent -> {
+            String newComplexityName = insertComplexity_field.getText().trim(); // Убираем пробелы с обеих сторон
+
+            // Проверяем, что строка не пуста после удаления пробелов
+            if (!newComplexityName.isEmpty()) {
+                // Вызываем метод для вставки новой сложности в БД
+                DatabaseHandler databaseHandler = new DatabaseHandler();
+                databaseHandler.insertComplexity(newComplexityName);
+                insertComplexity_field.setText("");
+                // Обновляем выпадающий список сложностей
+                fillComboBoxes();
+            } else {
+                // Если строка пуста, выводим сообщение об ошибке
+                error_field.setText("Нельзя добавить пустую сложность!");
+            }
+        });
 
         deleteQuest_Button.setOnAction(actionEvent -> {
             // Получаем выбранный вопрос из таблицы
@@ -289,6 +310,18 @@ public class AdminFuncController {
                     complexityComboBox.getItems().add(complexityName);
                 }
             }
+
+            // Заполняем выпадающий список complexityComboBox данными из БД
+            ResultSet complexityDeleteResultSet = databaseHandler.getAllComplexities();
+            while (complexityDeleteResultSet.next()) {
+                String complexityName = complexityDeleteResultSet.getString(Const.COMPLEXITY_NAME);
+
+                // Проверяем, не содержится ли уже такая сложность в списке
+                if (!complexityDeleteComboBox.getItems().contains(complexityName)) {
+                    complexityDeleteComboBox.getItems().add(complexityName);
+                }
+            }
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

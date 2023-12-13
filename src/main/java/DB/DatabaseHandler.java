@@ -297,4 +297,20 @@ public class DatabaseHandler extends Configs {
         preparedStatement.setString(1, categoryName);
         return preparedStatement.executeQuery();
     }
+
+    public void deleteComplexity(String selectedComplexity) {
+        String deleteQuery = "DELETE FROM " + Const.COMPLEXITY_TABLE + " WHERE " +
+                Const.COMPLEXITY_NAME + " = ? ";
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+            //String Category = Const.CATEGORY_NAME;
+            statement.setString(1, selectedComplexity);
+
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
