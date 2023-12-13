@@ -341,4 +341,46 @@ public class DatabaseHandler extends Configs {
 
         return null; // В случае ошибки вернем null или другое значение по умолчанию
     }
+
+
+    public int getLastScore(String player) throws SQLException, ClassNotFoundException {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+
+        // Предполагаем, что getDbConnection() - это ваш метод для получения соединения с базой данных
+        Connection connection = getDbConnection();
+
+        String selectQuery = "SELECT " + Const.LAST_SCORE + " FROM " + Const.GAMERS_TABLE + " WHERE " + Const.NICKNAME + "=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+        preparedStatement.setString(1, player);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            // Возвращаем значение из колонки LAST_SCORE
+            return resultSet.getInt(Const.LAST_SCORE);
+        } else {
+            // В случае отсутствия данных, можно вернуть значение по умолчанию
+            return 0; // Или какое-то другое значение
+        }
+    }
+
+    public void updateScore(String player, int additionalScore) throws SQLException, ClassNotFoundException {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        int currentScore = databaseHandler.getLastScore(player);
+        int newScore = currentScore + additionalScore;
+        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = " +
+                newScore + " WHERE " + Const.NICKNAME + " = " + player;
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, newScore);
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

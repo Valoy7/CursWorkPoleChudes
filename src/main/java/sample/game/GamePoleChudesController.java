@@ -1,6 +1,7 @@
 package sample.game;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -259,10 +260,29 @@ public class GamePoleChudesController {
         timeline.setCycleCount(1);
         timeline.play();
     }
-    private void handleRotationResult(int result) {
-        // Здесь вы можете добавить код для обработки различных результатов вращения
-        // Например, изменение счета, вывод сообщений, и так далее...
-        // ...
+    private void handleRotationResult(int sector, String player) throws SQLException, ClassNotFoundException {
+        DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
+
+        if (sector == 2) {
+            databaseHandler.updateScore(player, 100);
+        } else if (sector == 3) {
+            databaseHandler.updateScore(player, databaseHandler.getLastScore(player) * 2);  // Используйте экземпляр
+        } else if (sector == 4) {
+            databaseHandler.updateScore(player, 50);
+        } else if (sector == 6) {
+            databaseHandler.updateScore(player, 350);
+        } else if (sector == 8) {
+            databaseHandler.updateScore(player, 300);
+        } else if (sector == 9) {
+            databaseHandler.updateScore(player, 250);
+        } else if (sector == 10) {
+            databaseHandler.updateScore(player, 500);
+        } else if (sector == 11) {
+            databaseHandler.updateScore(player, 200);
+        } else if (sector == 12) {
+            databaseHandler.updateScore(player, 150);
+        }
+
     }
     private int getSector(double angle) {
         // Приведем угол к положительному значению в пределах от 0 до 360 градусов
