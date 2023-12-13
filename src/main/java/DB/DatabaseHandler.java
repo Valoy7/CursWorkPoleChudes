@@ -274,19 +274,27 @@ public class DatabaseHandler extends Configs {
         }
     }
 
-    public void deleteCategory(Category category) {
+    public void deleteCategory(String category_name) {
         String deleteQuery = "DELETE FROM " + Const.CATEGORY_TABLE + " WHERE " +
                 Const.CATEGORY_NAME + " = ? ";
 
         try (Connection connection = getDbConnection();
              PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
-
-            statement.setString(1, category.getCategory_name());
+            //String Category = Const.CATEGORY_NAME;
+            statement.setString(1, category_name);
 
             statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public ResultSet getCategoryByName(String categoryName) throws SQLException, ClassNotFoundException {
+        String selectQuery = "SELECT * FROM " + Const.CATEGORY_TABLE + " WHERE " + Const.CATEGORY_NAME + "=?";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(selectQuery);
+        preparedStatement.setString(1, categoryName);
+        return preparedStatement.executeQuery();
     }
 }

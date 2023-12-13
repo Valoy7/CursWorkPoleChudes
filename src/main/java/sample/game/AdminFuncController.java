@@ -36,7 +36,7 @@ public class AdminFuncController {
     private ComboBox<String> categoryComboBox;
 
     @FXML
-    private ComboBox<Category> categoryDeleteComboBox;
+    private ComboBox<String> categoryDeleteComboBox;
 
     @FXML
     private TableColumn<Quest, String> category_name_Column;
@@ -92,11 +92,6 @@ public class AdminFuncController {
     @FXML
     private TableColumn<Quest, String> quest_name_Column;
 
-    @FXML
-    private ScrollBar scrollBarDeleteQuest;
-
-    @FXML
-    private ScrollBar skrollBarDeleteUsers;
 
     @FXML
     private TableView<Quest> tableQuest;
@@ -104,11 +99,6 @@ public class AdminFuncController {
     @FXML
     private TableView<User> tableUsers;
 
-    @FXML
-    private Button updateTableQuests_Button;
-
-    @FXML
-    private Button updateTableUsers_Button;
 
     @FXML
     void initialize() {
@@ -167,6 +157,8 @@ public class AdminFuncController {
                 updateTableQuests();
                 // Обновляем выпадающий список категорий
                 fillComboBoxes();
+                answerInsert_field.setText("");
+                questInsert_field.setText("");
             } else {
                 // Если категория или сложность не существует, выводим сообщение об ошибке
                 error_field.setText("Ошибка добавления! Несуществующая категория или сложность.");
@@ -175,18 +167,30 @@ public class AdminFuncController {
         });
 
         insertCategoryButton.setOnAction(actionEvent -> {
-            String newCategoryName = insertCategory_field.getText();
+            String newCategoryName = insertCategory_field.getText().trim();
 
-            // Вызываем метод для вставки новой категории в БД
-            DatabaseHandler databaseHandler = new DatabaseHandler();
-            databaseHandler.insertCategory(newCategoryName);
-
-            // Обновляем выпадающий список категорий
-            fillComboBoxes();
+            // Проверяем, существует ли категория
+            if (!newCategoryName.isEmpty()) {
+                if (!isCategoryExists(newCategoryName)) {
+                    error_field.setText("");
+                    // Если не существует, добавляем
+                    DatabaseHandler databaseHandler = new DatabaseHandler();
+                    databaseHandler.insertCategory(newCategoryName);
+                    insertCategory_field.setText("");
+                    // Обновляем выпадающий список категорий
+                    fillComboBoxes();
+                } else {
+                    // Если категория уже существует, выводим сообщение об ошибке
+                    error_field.setText("Такая категория уже существует!");
+                }
+            } else {
+                // Если поле пустое, выводим сообщение об ошибке
+                error_field.setText("Поле пустое!");
+            }
         });
 
         deleteCategoryButton.setOnAction(actionEvent -> {
-            Category selectedCategory = categoryDeleteComboBox.getValue();
+            String selectedCategory = categoryDeleteComboBox.getValue();
 
             if (selectedCategory != null) {
                 // Вызываем метод для удаления выбранной категории из БД
@@ -206,7 +210,7 @@ public class AdminFuncController {
             // Вызываем метод для вставки новой сложности в БД
             DatabaseHandler databaseHandler = new DatabaseHandler();
             databaseHandler.insertComplexity(newComplexityName);
-
+            insertComplexity_field.setText("");
             // Обновляем выпадающий список сложностей
             fillComboBoxes();
         });
@@ -231,11 +235,24 @@ public class AdminFuncController {
 
     }
 
+    // Метод для проверки существования категории
+    private boolean isCategoryExists(String categoryName) {
+        try {
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            ResultSet resultSet = databaseHandler.getCategoryByName(categoryName);
+            return resultSet.next(); // Если есть следующая запись, значит, категория существует
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false; // Обработка ошибок, в данном случае, считаем, что категории не существует
+        }
+    }
+
     private void fillComboBoxes() {
         // Очищаем текущие элементы в выпадающих списках
         categoryComboBox.getItems().clear();
         complexityComboBox.getItems().clear();
         categoryDeleteComboBox.getItems().clear();
+        complexityDeleteComboBox.getItems().clear();
         try {
             DatabaseHandler databaseHandler = new DatabaseHandler();
 
@@ -254,7 +271,7 @@ public class AdminFuncController {
             ResultSet categoryDeleteResultSet = databaseHandler.getAllCategories();
             while (categoryDeleteResultSet.next()) {
 
-                Category categoryName = new Category(categoryDeleteResultSet.getString(Const.CATEGORY_NAME));
+                String categoryName = categoryDeleteResultSet.getString(Const.CATEGORY_NAME);
 
                 // Проверяем, не содержится ли уже такая категория в списке
                 if (!categoryDeleteComboBox.getItems().contains(categoryName)) {
