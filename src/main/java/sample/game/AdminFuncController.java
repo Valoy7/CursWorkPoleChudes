@@ -196,9 +196,10 @@ public class AdminFuncController {
                 // Вызываем метод для удаления выбранной категории из БД
                 DatabaseHandler databaseHandler = new DatabaseHandler();
                 databaseHandler.deleteCategory(selectedCategory);
-                fillComboBoxes();
+
                 // Обновляем выпадающий список категорий
                 fillComboBoxes();
+
                 // Обновляем данные таблицы
                 updateTableQuests();
             }
@@ -208,13 +209,13 @@ public class AdminFuncController {
             String selectedComplexity = complexityDeleteComboBox.getValue();
 
             if (selectedComplexity != null) {
-                // Вызываем метод для удаления выбранной категории из БД
+                // Вызываем метод для удаления выбранной сложности из БД
                 DatabaseHandler databaseHandler = new DatabaseHandler();
                 databaseHandler.deleteComplexity(selectedComplexity);
 
-
-                // Обновляем выпадающий список категорий
+                // Обновляем выпадающий список сложностей
                 fillComboBoxes();
+
                 // Обновляем данные таблицы
                 updateTableQuests();
             }

@@ -7,26 +7,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.MenuGameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.MenuGameController">
     <children>
-        <AnchorPane layoutY="125.0" prefHeight="275.0" prefWidth="700.0" style="-fx-background-color: #6E5160;">
+        <AnchorPane layoutY="125.0" prefHeight="275.0" prefWidth="700.0" style="-fx-background-color: #6E5160;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
             <children>
-                <Label layoutX="28.0" layoutY="25.0" prefHeight="31.0" prefWidth="179.0" text="Выберите сложность" textFill="#d1c2c2">
+                <Label layoutX="323.0" layoutY="32.0" prefHeight="31.0" prefWidth="179.0" text="Выберите сложность" textFill="#d1c2c2">
                     <font>
                         <Font name="Corbel" size="19.0" />
                     </font>
                 </Label>
-                <Button fx:id="startGameButton" layoutX="236.0" layoutY="166.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Начать игру" />
-            <Label layoutX="28.0" layoutY="94.0" prefHeight="31.0" prefWidth="179.0" text="Количество игроков" textFill="#d1c2c2">
+                <Button fx:id="startGameButton" layoutX="561.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Начать игру" />
+            <Label layoutX="323.0" layoutY="91.0" prefHeight="31.0" prefWidth="179.0" text="Количество игроков" textFill="#d1c2c2">
                <font>
                   <Font name="Corbel" size="19.0" />
                </font>
             </Label>
             <Text fx:id="SecretText_field" fill="#d1c2c2" layoutX="454.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="158.39999999999986" />
-            <ComboBox fx:id="complexityDropDownButton" layoutX="236.0" layoutY="28.0" prefWidth="150.0" promptText="Сложность" />
-            <ComboBox fx:id="numberPlayersDropDownButton" layoutX="236.0" layoutY="97.0" prefWidth="150.0" promptText="Количество" />
+            <ComboBox fx:id="complexityDropDownButton" layoutX="565.0" layoutY="35.0" prefWidth="150.0" promptText="Сложность" />
+            <ComboBox fx:id="numberPlayersDropDownButton" layoutX="565.0" layoutY="94.0" prefWidth="150.0" promptText="Количество" />
             </children></AnchorPane>
-        <Label layoutX="247.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
+        <Label layoutX="537.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>
                 <Font name="Corbel" size="40.0" />
             </font>
