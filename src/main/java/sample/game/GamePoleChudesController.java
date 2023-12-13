@@ -35,7 +35,7 @@ public class GamePoleChudesController {
     private ImageView baraban_img;
     private static final int ROTATION_DURATION = 200; // длительность вращения в миллисекундах
     private static final int ROTATION_CYCLES = 10; // количество циклов вращения
-    private static final int MAX_ROTATION_CYCLES = 40;
+    private static final int MAX_ROTATION_CYCLES = 20;
     private static final int MIN_ROTATION_CYCLES = 5;
     private Timeline timeline;
     @FXML
@@ -249,6 +249,8 @@ public class GamePoleChudesController {
 
         // Обработчик события завершения анимации
         timeline.setOnFinished(event -> {
+            int sector = getSector(baraban_img.getRotate()%360);
+            System.out.println("Sectror: " + sector);
             // Сохраняем конечное положение барабана
             // currentRotation = stopAngle; // Не используем более currentRotation
         });
@@ -261,6 +263,15 @@ public class GamePoleChudesController {
         // Здесь вы можете добавить код для обработки различных результатов вращения
         // Например, изменение счета, вывод сообщений, и так далее...
         // ...
+    }
+    private int getSector(double angle) {
+        // Приведем угол к положительному значению в пределах от 0 до 360 градусов
+        angle = (angle + 360) % 360;
+
+        // Определяем номер сектора (0-11)
+        int sector = (int) (angle / 30);
+
+        return sector;
     }
 
 }
