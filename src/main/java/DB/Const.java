@@ -7,4 +7,5 @@ public class Const {
     public static final String USER_MAX_SCORE = "max_score";
     public static final String USER_PASS = "password";
 
+
 }

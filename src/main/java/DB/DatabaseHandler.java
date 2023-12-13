@@ -57,16 +57,16 @@ public class DatabaseHandler extends Configs {
         return  resSet;
     }
 
-    public void insertQuest(String quest, String answer, String complexity, String category) {
-        String sql = "INSERT INTO quest_answercurs (quest, answer, complexity, category) VALUES (?, ?, ?, ?)";
+    public void insertQuest(String quest, String answer, String idcomplexity, String idcategory) {
+        String sql = "INSERT INTO quest_answercurs (quest, answer, idcomplexity, idcategory) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = getDbConnection();  // вызываем не через класс, а через текущий объект
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, quest);
             statement.setString(2, answer);
-            statement.setString(3, complexity);
-            statement.setString(4, category);
+            statement.setString(3, idcomplexity);
+            statement.setString(4, idcategory);
             statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -100,4 +100,28 @@ public class DatabaseHandler extends Configs {
         return prSt.executeQuery();
     }
 
+    // Получить все квесты
+    public ResultSet getAllQuests() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM quest_answercurs";
+        PreparedStatement prSt = getDbConnection().prepareStatement(query);
+        return prSt.executeQuery();
+    }
+
+    // Получить название категории по её ID
+    public String getCategoryNameById(int categoryId) throws SQLException, ClassNotFoundException {
+        String query = "SELECT category_name FROM category WHERE idcategory = ?";
+        PreparedStatement prSt = getDbConnection().prepareStatement(query);
+        prSt.setInt(1, categoryId);
+        ResultSet resultSet = prSt.executeQuery();
+        return resultSet.next() ? resultSet.getString("category_name") : null;
+    }
+
+    // Получить название сложности по её ID
+    public String getComplexityNameById(int complexityId) throws SQLException, ClassNotFoundException {
+        String query = "SELECT complexity_name FROM complexity WHERE idcomplexity = ?";
+        PreparedStatement prSt = getDbConnection().prepareStatement(query);
+        prSt.setInt(1, complexityId);
+        ResultSet resultSet = prSt.executeQuery();
+        return resultSet.next() ? resultSet.getString("complexity_name") : null;
+    }
 }
