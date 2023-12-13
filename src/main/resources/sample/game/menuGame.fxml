@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -16,7 +17,10 @@
                         <Font name="Corbel" size="19.0" />
                     </font>
                 </Label>
-                <Button fx:id="startGameButton" layoutX="561.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Начать игру" />
+                <Button fx:id="startGameButton" layoutX="504.0" layoutY="490.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="263.0" text="Начать игру">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font></Button>
             <Label layoutX="323.0" layoutY="91.0" prefHeight="31.0" prefWidth="179.0" text="Количество игроков" textFill="#d1c2c2">
                <font>
                   <Font name="Corbel" size="19.0" />
@@ -25,10 +29,20 @@
             <Text fx:id="SecretText_field" fill="#d1c2c2" layoutX="454.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="158.39999999999986" />
             <ComboBox fx:id="complexityDropDownButton" layoutX="565.0" layoutY="35.0" prefWidth="150.0" promptText="Сложность" />
             <ComboBox fx:id="numberPlayersDropDownButton" layoutX="565.0" layoutY="94.0" prefWidth="150.0" promptText="Количество" />
+            <Label layoutX="323.0" layoutY="234.0" prefHeight="31.0" prefWidth="206.0" text="Введите имена игроков:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="19.0" />
+               </font>
+            </Label>
+            <TextField fx:id="firstPlayer_field" layoutX="561.0" layoutY="237.0" promptText="Первый" />
+            <TextField fx:id="secondPlayer_field" layoutX="561.0" layoutY="285.0" promptText="Второй" />
+            <TextField fx:id="thirdPlayer_field" layoutX="561.0" layoutY="335.0" promptText="Третий" />
+            <TextField fx:id="fourthPlayer_field" layoutX="561.0" layoutY="382.0" promptText="Четвертый" />
+            <TextField fx:id="fifthPlayer_field" layoutX="561.0" layoutY="431.0" promptText="Пятый" />
             </children></AnchorPane>
         <Label layoutX="537.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>
-                <Font name="Corbel" size="40.0" />
+                <Font name="Corbel Bold" size="40.0" />
             </font>
         </Label>
         <Button fx:id="returnLobbyButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Вернуться" />
