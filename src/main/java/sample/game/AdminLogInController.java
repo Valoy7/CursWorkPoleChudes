@@ -65,7 +65,7 @@ public class AdminLogInController {
             authLogInButton.getScene().getWindow().hide();
             // всё это для отображения нужного окна
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/game/adminCommand.fxml"));
+            loader.setLocation(getClass().getResource("/sample/game/adminFunc.fxml"));
 
             try {
                 loader.load();

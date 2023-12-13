@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class InsertQuestController {
+public class AdminFuncController {
 
     @FXML
     private ResourceBundle resources;
