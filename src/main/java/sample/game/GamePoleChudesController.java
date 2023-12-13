@@ -1,16 +1,21 @@
 package sample.game;
 
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import DB.DatabaseHandler;
 import DB.NowLogInUser;
+import javafx.animation.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class GamePoleChudesController {
 
@@ -28,7 +33,11 @@ public class GamePoleChudesController {
 
     @FXML
     private ImageView baraban_img;
-
+    private static final int ROTATION_DURATION = 500; // длительность вращения в миллисекундах
+    private static final int ROTATION_CYCLES = 10; // количество циклов вращения
+    private static final int MAX_ROTATION_CYCLES = 10;
+    private static final int MIN_ROTATION_CYCLES = 3;
+    private Timeline timeline;
     @FXML
     private Button checkAnswerButton;
 
@@ -153,6 +162,10 @@ public class GamePoleChudesController {
     void initialize() {
         login_field.setText(NowLogInUser.getLoggedInUsername());
 
+        // обработчик события для кнопки кручения барабана
+        baraban_img.setOnMouseClicked(event -> {
+            rotateBaraban();
+        });
 
         // взять выбранную ранее сложность
         String complexity = NowPlayers.getComplexity();
@@ -179,6 +192,75 @@ public class GamePoleChudesController {
             ReturnLobbyButton.getScene().getWindow().hide();
             WindowManager.showHelloView();
         });
+
+
+    }
+    private int result;
+    // Метод для вращения барабана
+    private double currentRotation = 0.0; // Добавьте это поле в ваш класс
+
+    private void rotateBaraban() {
+        Random random = new Random();
+
+        // Если timeline уже был создан и он еще выполняется, не создаем новую анимацию
+        if (timeline != null && timeline.getStatus() == Animation.Status.RUNNING) {
+            return;
+        }
+
+        // Если timeline уже был создан, остановим его
+        if (timeline != null) {
+            timeline.stop();
+        }
+
+        // Инициализируем timeline
+        timeline = new Timeline();
+
+        // Установим начальный угол вращения
+        double startAngle = baraban_img.getRotate();
+
+        // Определение случайного количества циклов вращения
+        int rotationCycles = random.nextInt(MAX_ROTATION_CYCLES - MIN_ROTATION_CYCLES + 1) + MIN_ROTATION_CYCLES;
+
+        // Добавим KeyFrames для каждого кадра анимации
+        for (int i = 0; i < rotationCycles; i++) {
+            // Определение случайного значения для результата вращения
+
+            // Добавление кадра анимации
+            KeyFrame keyFrame = new KeyFrame(
+                    Duration.millis(ROTATION_DURATION * (i + 1)),
+                    new KeyValue(baraban_img.rotateProperty(), startAngle - 30 * (i + 1), Interpolator.LINEAR)
+            );
+
+            // Добавление KeyFrame в timeline
+            timeline.getKeyFrames().add(keyFrame);
+        }
+
+        // Определение случайного угла для остановки
+        int stopAngle = random.nextInt(360);
+
+        // Добавление кадра анимации для остановки
+        KeyFrame stopKeyFrame = new KeyFrame(
+                Duration.millis(ROTATION_DURATION * rotationCycles),
+                new KeyValue(baraban_img.rotateProperty(), stopAngle, Interpolator.LINEAR)
+        );
+
+        // Добавление KeyFrame для остановки в timeline
+        timeline.getKeyFrames().add(stopKeyFrame);
+
+        // Обработчик события завершения анимации
+        timeline.setOnFinished(event -> {
+            // Сохраняем конечное положение барабана
+            // currentRotation = stopAngle; // Не используем более currentRotation
+        });
+
+        // Устанавливаем параметры анимации
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+    private void handleRotationResult(int result) {
+        // Здесь вы можете добавить код для обработки различных результатов вращения
+        // Например, изменение счета, вывод сообщений, и так далее...
+        // ...
     }
 
 }
