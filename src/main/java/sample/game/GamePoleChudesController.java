@@ -33,10 +33,10 @@ public class GamePoleChudesController {
 
     @FXML
     private ImageView baraban_img;
-    private static final int ROTATION_DURATION = 500; // длительность вращения в миллисекундах
+    private static final int ROTATION_DURATION = 200; // длительность вращения в миллисекундах
     private static final int ROTATION_CYCLES = 10; // количество циклов вращения
-    private static final int MAX_ROTATION_CYCLES = 10;
-    private static final int MIN_ROTATION_CYCLES = 3;
+    private static final int MAX_ROTATION_CYCLES = 40;
+    private static final int MIN_ROTATION_CYCLES = 5;
     private Timeline timeline;
     @FXML
     private Button checkAnswerButton;
