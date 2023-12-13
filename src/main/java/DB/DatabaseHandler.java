@@ -124,4 +124,32 @@ public class DatabaseHandler extends Configs {
         ResultSet resultSet = prSt.executeQuery();
         return resultSet.next() ? resultSet.getString("complexity_name") : null;
     }
+
+    public void insertCategory(String categoryName) {
+        String sql = "INSERT INTO category (category_name) VALUES (?)";
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, categoryName);
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertComplexity(String complexityName) {
+        String sql = "INSERT INTO complexity (complexity_name) VALUES (?)";
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, complexityName);
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

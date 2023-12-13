@@ -146,26 +146,60 @@ public class InsertQuestController {
             databaseHandler.insertQuest(insertQuest, insertAnswer, String.valueOf(complexityId), String.valueOf(categoryId));
             updateTableQuests();
         });
+
+        insertCategoryButton.setOnAction(actionEvent -> {
+            String newCategoryName = insertCategory_field.getText();
+
+            // Вызываем метод для вставки новой категории в БД
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            databaseHandler.insertCategory(newCategoryName);
+
+            // Обновляем выпадающий список категорий
+            fillComboBoxes();
+        });
+
+        insertComplexityButton.setOnAction(actionEvent -> {
+            String newComplexityName = insertComplexity_field.getText();
+
+            // Вызываем метод для вставки новой сложности в БД
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            databaseHandler.insertComplexity(newComplexityName);
+
+            // Обновляем выпадающий список сложностей
+            fillComboBoxes();
+        });
+
+
     }
 
     private void fillComboBoxes() {
-        // Заполняем выпадающий список categoryComboBox данными из БД
+        // Очищаем текущие элементы в выпадающих списках
+        categoryComboBox.getItems().clear();
+        complexityComboBox.getItems().clear();
+
         try {
             DatabaseHandler databaseHandler = new DatabaseHandler();
+
+            // Заполняем выпадающий список categoryComboBox данными из БД
             ResultSet categoryResultSet = databaseHandler.getAllCategories();
             while (categoryResultSet.next()) {
-                categoryComboBox.getItems().add(categoryResultSet.getString("category_name"));
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+                String categoryName = categoryResultSet.getString("category_name");
 
-        // Заполняем выпадающий список complexityComboBox данными из БД
-        try {
-            DatabaseHandler databaseHandler = new DatabaseHandler();
+                // Проверяем, не содержится ли уже такая категория в списке
+                if (!categoryComboBox.getItems().contains(categoryName)) {
+                    categoryComboBox.getItems().add(categoryName);
+                }
+            }
+
+            // Заполняем выпадающий список complexityComboBox данными из БД
             ResultSet complexityResultSet = databaseHandler.getAllComplexities();
             while (complexityResultSet.next()) {
-                complexityComboBox.getItems().add(complexityResultSet.getString("complexity_name"));
+                String complexityName = complexityResultSet.getString("complexity_name");
+
+                // Проверяем, не содержится ли уже такая сложность в списке
+                if (!complexityComboBox.getItems().contains(complexityName)) {
+                    complexityComboBox.getItems().add(complexityName);
+                }
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -225,4 +259,5 @@ public class InsertQuestController {
             e.printStackTrace();
         }
     }
+
 }
