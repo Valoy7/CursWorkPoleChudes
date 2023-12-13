@@ -313,4 +313,32 @@ public class DatabaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
+    public String getRandomQuestion(String complexity) {
+        int idComplexity = getComplexityId(complexity);
+
+        String randomQuestionQuery = "SELECT " + Const.QUEST_TEXT + " FROM " + Const.QUEST_TABLE +
+                " WHERE " + Const.QUEST_COMPLEXITY_ID + " = ? ORDER BY RAND() LIMIT 1";
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(randomQuestionQuery)) {
+
+            preparedStatement.setInt(1, idComplexity);
+            boolean executeResult = preparedStatement.execute();
+
+            if (executeResult) {
+                try (ResultSet resultSet = preparedStatement.getResultSet()) {
+                    if (resultSet.next()) {
+                        return resultSet.getString(Const.QUEST_TEXT);
+                    }
+                }
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            // Обработка ошибок подключения к базе данных
+        }
+
+        return null; // В случае ошибки вернем null или другое значение по умолчанию
+    }
 }

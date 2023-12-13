@@ -3,6 +3,7 @@ package sample.game;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import DB.DatabaseHandler;
 import DB.NowLogInUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -146,12 +147,24 @@ public class GamePoleChudesController {
     private Button Я_button;
     @FXML
     private Label login_field;
-//    public GamePoleChudesController() {
-//    }
+
 
     @FXML
     void initialize() {
         login_field.setText(NowLogInUser.getLoggedInUsername());
+
+
+        // взять выбранную ранее сложность
+        String complexity = NowPlayers.getComplexity();
+
+        // Создаем экземпляр DatabaseHandler
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+
+        // Вызываем метод getRandomQuestion через созданный экземпляр
+        String nowQuest = databaseHandler.getRandomQuestion(complexity);
+
+        // Предположим, что quest_field - это TextField, но замените на соответствующий тип элемента интерфейса
+        quest_field.setText(nowQuest);
 
         //NowPlayers nowPlayers = NowPlayers();
         String firstPlayer = NowPlayers.getFirstPlayer();
@@ -160,12 +173,6 @@ public class GamePoleChudesController {
         String fourthPlayer = NowPlayers.getFourthPlayer();
         String fifthPlayer = NowPlayers.getFifthPlayer();
 
-// Пример вывода значений
-        System.out.println("Игрок 1:" + firstPlayer+ "na pustotu");
-        System.out.println("Игрок 2:" + secondPlayer+ "na pustotu");
-        System.out.println("Игрок 3:" + thirdPlayer+ "na pustotu");
-        System.out.println("Игрок 4:" + fourthPlayer+ "na pustotu");
-        System.out.println("Игрок 5:" + fifthPlayer + "na pustotu");
 
         // кнопка возвращения на главный экран
         ReturnLobbyButton.setOnAction(actionEvent -> {

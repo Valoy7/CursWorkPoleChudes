@@ -145,7 +145,11 @@ public class MenuGameController {
 
 
         startGameButton.setOnAction(actionEvent -> {
-          //  NowPlayers nowPlayers = new NowPlayers();
+            // Записываем выбранную сложность
+            String selectedComplexity = complexityDropDownButton.getValue();
+            if (selectedComplexity != null) {
+                NowPlayers.setComplexity(selectedComplexity);
+            }
 
             if (!firstPlayer_field.getText().isEmpty()) {
                 NowPlayers.setFirstPlayer(firstPlayer_field.getText());

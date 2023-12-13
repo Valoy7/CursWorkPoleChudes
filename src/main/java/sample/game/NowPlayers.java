@@ -9,12 +9,21 @@ public class NowPlayers {
     private static String fourthPlayer;
     private static String fifthPlayer;
 
+    private static String complexity;
+
     // Конструктор по умолчанию
     public NowPlayers() {
 
     }
 
-    // Геттеры и сеттеры для полей класса
+    public static String getComplexity() {
+        return complexity;
+    }
+
+    public static void setComplexity(String complexity) {
+        NowPlayers.complexity = complexity;
+    }
+// Геттеры и сеттеры для полей класса
 
     public static String getFirstPlayer() {
         return firstPlayer;
