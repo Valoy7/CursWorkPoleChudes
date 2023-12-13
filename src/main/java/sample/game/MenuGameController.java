@@ -145,6 +145,27 @@ public class MenuGameController {
 
 
         startGameButton.setOnAction(actionEvent -> {
+          //  NowPlayers nowPlayers = new NowPlayers();
+
+            if (!firstPlayer_field.getText().isEmpty()) {
+                NowPlayers.setFirstPlayer(firstPlayer_field.getText());
+            }
+
+            if (!secondPlayer_field.getText().isEmpty()) {
+                NowPlayers.setSecondPlayer(secondPlayer_field.getText());
+            }
+
+            if (!thirdPlayer_field.getText().isEmpty()) {
+                NowPlayers.setThirdPlayer(thirdPlayer_field.getText());
+            }
+
+            if (!fourthPlayer_field.getText().isEmpty()) {
+                NowPlayers.setFourthPlayer(fourthPlayer_field.getText());
+            }
+
+            if (!fifthPlayer_field.getText().isEmpty()) {
+                NowPlayers.setFifthPlayer(fifthPlayer_field.getText());
+            }
             startGameButton.getScene().getWindow().hide();
             // всё это для отображения нужного окна
             FXMLLoader loader =  new FXMLLoader();

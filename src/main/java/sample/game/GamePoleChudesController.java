@@ -146,13 +146,26 @@ public class GamePoleChudesController {
     private Button Я_button;
     @FXML
     private Label login_field;
-    public GamePoleChudesController() {
-    }
+//    public GamePoleChudesController() {
+//    }
 
     @FXML
     void initialize() {
         login_field.setText(NowLogInUser.getLoggedInUsername());
 
+        //NowPlayers nowPlayers = NowPlayers();
+        String firstPlayer = NowPlayers.getFirstPlayer();
+        String secondPlayer = NowPlayers.getSecondPlayer();
+        String thirdPlayer = NowPlayers.getThirdPlayer();
+        String fourthPlayer = NowPlayers.getFourthPlayer();
+        String fifthPlayer = NowPlayers.getFifthPlayer();
+
+// Пример вывода значений
+        System.out.println("Игрок 1:" + firstPlayer+ "na pustotu");
+        System.out.println("Игрок 2:" + secondPlayer+ "na pustotu");
+        System.out.println("Игрок 3:" + thirdPlayer+ "na pustotu");
+        System.out.println("Игрок 4:" + fourthPlayer+ "na pustotu");
+        System.out.println("Игрок 5:" + fifthPlayer + "na pustotu");
 
         // кнопка возвращения на главный экран
         ReturnLobbyButton.setOnAction(actionEvent -> {
