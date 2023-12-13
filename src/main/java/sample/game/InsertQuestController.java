@@ -170,6 +170,23 @@ public class InsertQuestController {
         });
 
 
+        deleteQuest_Button.setOnAction(actionEvent -> {
+            // Получаем выбранный вопрос из таблицы
+            Quest selectedQuest = tableQuest.getSelectionModel().getSelectedItem();
+
+            if (selectedQuest != null) {
+                // Вызываем метод для удаления вопроса из БД
+                DatabaseHandler databaseHandler = new DatabaseHandler();
+                databaseHandler.deleteQuest(selectedQuest);
+
+                // Обновляем данные в таблице
+                updateTableQuests();
+            } else {
+                // Если ничего не выбрано, выведите предупреждение или обработайте ситуацию по вашему усмотрению
+                System.out.println("Please select a question to delete.");
+            }
+        });
+
     }
 
     private void fillComboBoxes() {

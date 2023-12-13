@@ -2,7 +2,6 @@ package DB;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 
 public class Quest {
     private StringProperty quest;
@@ -38,9 +37,44 @@ public class Quest {
         return quest.get();
     }
 
+    public String getAnswer() {
+        return answer.get();
+    }
+
     public void setQuest(String quest) {
         this.quest.set(quest);
     }
 
-    // Аналогично для других свойств
+    public void setAnswer(String answer) {
+        this.answer.set(answer);
+    }
+
+    public String getIdcategory() {
+        return idcategory.get();
+    }
+
+    public StringProperty idcategoryProperty() {
+        return idcategory;
+    }
+
+    public String setIdcategory() {
+        return idcategory.get();
+        //this.idcategory.set(idcategory);
+    }
+
+    public String getIdcomplexity() {
+        return idcomplexity.get();
+    }
+
+    public StringProperty idcomplexityProperty() {
+        return idcomplexity;
+    }
+
+    public void setIdcomplexity(String idcomplexity) {
+        this.idcomplexity.set(idcomplexity);
+    }
+
+
+
+// Аналогично для других свойств
 }

@@ -152,4 +152,102 @@ public class DatabaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
+    public void deleteQuest(Quest quest) {
+        String deleteQuery = "DELETE FROM quest_answercurs WHERE quest = ? AND answer = ? AND idcategory = ? AND idcomplexity = ?";
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, quest.getQuest());
+            statement.setString(2, quest.getAnswer());
+            statement.setInt(3, getIdcategory(quest.setIdcategory()));
+            statement.setInt(4, getComplexityId(quest.getIdcomplexity()));
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getIdcategory(String categoryName) {
+        int categoryId = -1; // Инициализируем значение по умолчанию
+
+        String select = "SELECT idcategory FROM category WHERE category_name=?";
+        try (Connection connection = getDbConnection();
+             PreparedStatement prSt = connection.prepareStatement(select)) {
+
+            prSt.setString(1, categoryName);
+            ResultSet resultSet = prSt.executeQuery();
+
+            if (resultSet.next()) {
+                categoryId = resultSet.getInt("idcategory");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return categoryId;
+    }
+
+    private int getComplexityId(String complexityName) {
+        int complexityId = -1; // Инициализируем значение по умолчанию
+
+        String select = "SELECT idcomplexity FROM complexity WHERE complexity_name=?";
+        try (Connection connection = getDbConnection();
+             PreparedStatement prSt = connection.prepareStatement(select)) {
+
+            prSt.setString(1, complexityName);
+            ResultSet resultSet = prSt.executeQuery();
+
+            if (resultSet.next()) {
+                complexityId = resultSet.getInt("idcomplexity");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return complexityId;
+    }
+
+    public String getCategoryName(int categoryId) {
+        String categoryName = null;
+
+        String select = "SELECT category_name FROM category WHERE idcategory=?";
+        try (Connection connection = getDbConnection();
+             PreparedStatement prSt = connection.prepareStatement(select)) {
+
+            prSt.setInt(1, categoryId);
+            ResultSet resultSet = prSt.executeQuery();
+
+            if (resultSet.next()) {
+                categoryName = resultSet.getString("category_name");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return categoryName;
+    }
+
+    public String getComplexityName(int complexityId) {
+        String complexityName = null;
+
+        String select = "SELECT complexity_name FROM complexity WHERE idcomplexity=?";
+        try (Connection connection = getDbConnection();
+             PreparedStatement prSt = connection.prepareStatement(select)) {
+
+            prSt.setInt(1, complexityId);
+            ResultSet resultSet = prSt.executeQuery();
+
+            if (resultSet.next()) {
+                complexityName = resultSet.getString("complexity_name");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return complexityName;
+    }
+
 }
