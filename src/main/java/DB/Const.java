@@ -22,4 +22,12 @@ public class Const {
     public static final String ANSWER_TEXT = "answer";
     public static final String QUEST_COMPLEXITY_ID = "idcomplexity";
     public static final String QUEST_CATEGORY_ID = "idcategory";
+
+    ////////
+
+    public static final String GAMERS_TABLE = "gamers";
+    public static final String USERS_ID = "idusers";
+    public static final String NICKNAME = "nickname";
+    public static final String LAST_SCORE = "lastScore";
+    public static final String MAX_SCORE = "maxScore";
 }

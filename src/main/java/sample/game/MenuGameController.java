@@ -2,6 +2,7 @@ package sample.game;
 
 import DB.Const;
 import DB.DatabaseHandler;
+import DB.NowLogInUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -57,10 +59,16 @@ public class MenuGameController {
 
     @FXML
     private TextField thirdPlayer_field;
+    @FXML
+    private Label login_field;
 
 
     @FXML
     void initialize() {
+
+        login_field.setText(NowLogInUser.getLoggedInUsername());
+
+
         try {
             DatabaseHandler databaseHandler = new DatabaseHandler();
             ObservableList<String> complexity_list = FXCollections.observableArrayList();
@@ -133,5 +141,28 @@ public class MenuGameController {
                     break;
             }
         });
+
+
+
+        startGameButton.setOnAction(actionEvent -> {
+            startGameButton.getScene().getWindow().hide();
+            // всё это для отображения нужного окна
+            FXMLLoader loader =  new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/game/gamePoleChudes.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            // root параметр, который нужно подключить
+            stage.setScene(new Scene(root));
+            stage.show();
+        });
+
+
     }
 }

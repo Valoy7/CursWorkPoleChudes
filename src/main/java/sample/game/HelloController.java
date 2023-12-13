@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import DB.DatabaseHandler;
+import DB.NowLogInUser;
 import DB.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -97,6 +98,7 @@ public class HelloController {
             counter++;
         }
         if(counter >= 1) {
+            NowLogInUser.setLoggedInUsername(loginText);
             openNewScene("/sample/game/menuGame.fxml");
         } else {
             Shake userLoginAnim = new Shake(login_field);

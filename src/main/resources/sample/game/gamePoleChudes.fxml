@@ -7,20 +7,20 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.AdminLogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #464451;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.game.GamePoleChudesController">
     <children>
         <AnchorPane layoutY="125.0" prefHeight="275.0" prefWidth="700.0" style="-fx-background-color: #6E5160;" AnchorPane.bottomAnchor="-0.19999999999998863" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="124.80000000000001">
             <children>
-                <TextField fx:id="firstPlayer_field" layoutX="565.0" layoutY="76.0" prefHeight="26.0" prefWidth="150.0" promptText="Первый" />
-                <Label layoutX="536.0" layoutY="14.0" prefHeight="31.0" prefWidth="206.0" text="Введите игроков:" textFill="#d1c2c2">
+                <Label layoutX="532.0" layoutY="14.0" prefHeight="31.0" prefWidth="225.0" text="Внимание, вопрос:" textFill="#d1c2c2">
                     <font>
                         <Font name="Corbel" size="26.0" />
                     </font>
                 </Label>
-                <Button fx:id="startGameButton" layoutX="763.0" layoutY="164.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Запустить" />
-                <ImageView fitHeight="476.0" fitWidth="476.0" layoutX="14.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="checkAnswerButton" layoutX="698.0" layoutY="295.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Проверить" />
+                <ImageView fx:id="baraban_img" fitHeight="476.0" fitWidth="476.0" layoutX="14.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../assets/baraban.png" />
                     </image>
@@ -28,16 +28,95 @@
                         <Blend />
                     </effect>
                 </ImageView>
-            <TextField fx:id="secondPlayer_field" layoutX="564.0" layoutY="118.0" prefHeight="26.0" prefWidth="150.0" promptText="Второй" />
-            <TextField fx:id="thirdPlayer_field" layoutX="564.0" layoutY="164.0" prefHeight="26.0" prefWidth="150.0" promptText="Третий" />
-            <TextField fx:id="fourthPlayer_field" layoutX="564.0" layoutY="210.0" prefHeight="26.0" prefWidth="150.0" promptText="Четвертый" />
-            <TextField fx:id="fifthPlayer_field" layoutX="564.0" layoutY="256.0" prefHeight="26.0" prefWidth="150.0" promptText="Пятый" />
+            <TextField fx:id="fullAnswer_field" layoutX="560.0" layoutY="250.0" prefHeight="26.0" prefWidth="434.0" promptText="Ответ" />
+            <Label fx:id="quest_field" layoutX="472.0" layoutY="60.0" prefHeight="31.0" prefWidth="794.0" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Pane fx:id="word_field" layoutX="1019.0" layoutY="154.0" prefHeight="154.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="A_button" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="А" />
+                  <Button fx:id="Б_button" layoutX="34.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Б" />
+                  <Button fx:id="В_button" layoutX="68.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="В" />
+                  <Button fx:id="Г_button" layoutX="100.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Г" />
+                  <Button fx:id="Д_button" layoutX="134.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Д" />
+                  <Button fx:id="Е_button" layoutX="166.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Е" />
+                  <Button fx:id="Ё_button" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ё" />
+                  <Button fx:id="Ж_button" layoutX="34.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ж" />
+                  <Button fx:id="З_button" layoutX="68.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="З" />
+                  <Button fx:id="И_button" layoutX="100.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="И" />
+                  <Button fx:id="Й_button" layoutX="134.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Й" />
+                  <Button fx:id="К_button" layoutX="166.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="К" />
+                  <Button fx:id="Л_button" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Л" />
+                  <Button fx:id="М_button" layoutX="34.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="М" />
+                  <Button fx:id="Н_button" layoutX="68.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Н" />
+                  <Button fx:id="О_button" layoutX="100.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="О" />
+                  <Button fx:id="П_button" layoutX="134.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="П" />
+                  <Button fx:id="Р_button" layoutX="166.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Р" />
+                  <Button fx:id="С_button" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="С" />
+                  <Button fx:id="Т_button" layoutX="34.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Т" />
+                  <Button fx:id="У_button" layoutX="68.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="У" />
+                  <Button fx:id="Ф_button" layoutX="100.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ф" />
+                  <Button fx:id="Х_button" layoutX="134.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Х" />
+                  <Button fx:id="Ц_button" layoutX="166.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ц" />
+                  <Button fx:id="Ч_button" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ч" />
+                  <Button fx:id="Ш_button" layoutX="34.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ш" />
+                  <Button fx:id="Щ_button" layoutX="68.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Щ" />
+                  <Button fx:id="Ъ_button" layoutX="100.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ъ" />
+                  <Button fx:id="Ы_button" layoutX="134.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ы" />
+                  <Button fx:id="Ь_button" layoutX="166.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ь" />
+                  <Button fx:id="Э_button" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Э" />
+                  <Button fx:id="Ю_button" layoutX="34.0" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ю" />
+                  <Button fx:id="Я_button" layoutX="68.0" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Я" />
+               </children>
+            </Pane>
+            <Label layoutX="1033.0" layoutY="112.0" prefHeight="31.0" prefWidth="156.0" text="Ввод буквы" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="560.0" layoutY="206.0" prefHeight="31.0" prefWidth="226.0" text="Ввести слово целиком:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="560.0" layoutY="166.0" prefHeight="31.0" prefWidth="169.0" text="Очередь ходить:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="yourTurn_field" layoutX="730.0" layoutY="166.0" prefHeight="31.0" prefWidth="206.0" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="system_field" layoutX="537.0" layoutY="357.0" prefHeight="31.0" prefWidth="714.0" textFill="WHITE">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="rightAnswer_field" layoutX="560.0" layoutY="127.0" prefHeight="31.0" prefWidth="320.0" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
             </children></AnchorPane>
         <Label layoutX="537.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>
-                <Font name="Corbel" size="40.0" />
+                <Font name="Corbel Bold" size="40.0" />
             </font>
         </Label>
-        <Button fx:id="signUp_ReturnLobbyButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Вернуться" />
+        <Button fx:id="ReturnLobbyButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Вернуться" />
+      <Label layoutX="116.0" layoutY="17.0" prefHeight="31.0" prefWidth="170.0" text="Вы вошли как:" textFill="#d1c2c2">
+         <font>
+            <Font name="Corbel" size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="login_field" layoutX="286.0" layoutY="17.0" prefHeight="31.0" prefWidth="190.0" textFill="#d1c2c2">
+         <font>
+            <Font name="Corbel" size="26.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -46,5 +46,15 @@
             </font>
         </Label>
         <Button fx:id="returnLobbyButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Вернуться" />
+      <Label layoutX="124.0" layoutY="17.0" prefHeight="31.0" prefWidth="123.0" text="Вы вошли как:" textFill="#d1c2c2">
+         <font>
+            <Font name="Corbel" size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="login_field" layoutX="255.0" layoutY="17.0" prefHeight="31.0" prefWidth="192.0" textFill="#d1c2c2">
+         <font>
+            <Font name="Corbel" size="19.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
