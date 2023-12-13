@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import DB.DatabaseHandler;
 import DB.Quest;
+import DB.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -14,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AdminFuncController {
 
@@ -102,7 +104,7 @@ public class AdminFuncController {
     private TableView<Quest> tableQuest;
 
     @FXML
-    private TableView<?> tableUsers;
+    private TableView<User> tableUsers;
 
     @FXML
     private Button updateTableQuests_Button;
@@ -112,7 +114,24 @@ public class AdminFuncController {
 
     @FXML
     void initialize() {
+// Инициализируем колонки таблицы пользователей
+        loginUsers_Column.setCellValueFactory(new PropertyValueFactory<>("username"));
+        passwordUsers_Column.setCellValueFactory(new PropertyValueFactory<>("password"));
 
+        updateTableUsers();
+
+        // Добавляем обработчик события для кнопки удаления пользователя
+        deleteUser_Button.setOnAction(actionEvent -> {
+            User selectedUser = tableUsers.getSelectionModel().getSelectedItem();
+            if (selectedUser != null) {
+                DatabaseHandler databaseHandler = new DatabaseHandler();
+                databaseHandler.deleteUser(selectedUser);
+                updateTableUsers(); // Обновляем таблицу после удаления пользователя
+            } else {
+                // Обработка случая, когда не выбран пользователь для удаления
+                error_field.setText("Выберите пользователя для удаления");
+            }
+        });
         // Инициализируем колонки таблицы
         quest_name_Column.setCellValueFactory(cellData -> cellData.getValue().questProperty());
         answer_name_Column.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
@@ -272,6 +291,25 @@ public class AdminFuncController {
             }
 
             tableQuest.setItems(questList);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    private void updateTableUsers() {
+        // Получаем данные из БД и обновляем таблицу пользователей
+        try {
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            ObservableList<User> userList = FXCollections.observableArrayList();
+
+            ResultSet userResultSet = databaseHandler.getAllUsers();
+            while (userResultSet.next()) {
+                String username = userResultSet.getString("username");
+                String password = userResultSet.getString("password");
+
+                userList.add(new User(username, password));
+            }
+
+            tableUsers.setItems(userList);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

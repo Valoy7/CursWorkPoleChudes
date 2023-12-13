@@ -250,4 +250,27 @@ public class DatabaseHandler extends Configs {
         return complexityName;
     }
 
+    // Получить всех пользователей
+    public ResultSet getAllUsers() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM " + Const.USER_TABLE;
+        PreparedStatement prSt = getDbConnection().prepareStatement(query);
+        return prSt.executeQuery();
+    }
+
+    // Удалить пользователя
+    public void deleteUser(User selectedUser) {
+        String deleteQuery = "DELETE FROM " + Const.USER_TABLE + " WHERE " +
+                Const.USER_NAME + " = ? AND " + Const.USER_PASS + " = ?";
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, selectedUser.getUsername());
+            statement.setString(2, selectedUser.getPassword());
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
