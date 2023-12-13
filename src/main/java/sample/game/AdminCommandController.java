@@ -47,6 +47,24 @@ public class AdminCommandController {
             WindowManager.showHelloView();
         });
 
-    }
+        insertQuestButton.setOnAction(actionEvent -> {
+            // Закрываем текущее окно
+            insertQuestButton.getScene().getWindow().hide();
 
+            // Загружаем новое окно
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/game/insertQuest.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        });
+    }
 }

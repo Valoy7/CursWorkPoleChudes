@@ -57,5 +57,47 @@ public class DatabaseHandler extends Configs {
         return  resSet;
     }
 
+    public void insertQuest(String quest, String answer, String complexity, String category) {
+        String sql = "INSERT INTO quest_answercurs (quest, answer, complexity, category) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = getDbConnection();  // вызываем не через класс, а через текущий объект
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, quest);
+            statement.setString(2, answer);
+            statement.setString(3, complexity);
+            statement.setString(4, category);
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ResultSet getAllCategories() throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM category";
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        return prSt.executeQuery();
+    }
+
+    public ResultSet getAllComplexities() throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM complexity";
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        return prSt.executeQuery();
+    }
+
+    public ResultSet getCategoryIdByName(String categoryName) throws SQLException, ClassNotFoundException {
+        String select = "SELECT idcategory FROM category WHERE category_name=?";
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        prSt.setString(1, categoryName);
+        return prSt.executeQuery();
+    }
+
+    public ResultSet getComplexityIdByName(String complexityName) throws SQLException, ClassNotFoundException {
+        String select = "SELECT idcomplexity FROM complexity WHERE complexity_name=?";
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        prSt.setString(1, complexityName);
+        return prSt.executeQuery();
+    }
 
 }
