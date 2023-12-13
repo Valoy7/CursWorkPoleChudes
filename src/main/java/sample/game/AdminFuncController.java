@@ -196,7 +196,7 @@ public class AdminFuncController {
                 // Вызываем метод для удаления выбранной категории из БД
                 DatabaseHandler databaseHandler = new DatabaseHandler();
                 databaseHandler.deleteCategory(selectedCategory);
-
+                fillComboBoxes();
                 // Обновляем выпадающий список категорий
                 fillComboBoxes();
                 // Обновляем данные таблицы
