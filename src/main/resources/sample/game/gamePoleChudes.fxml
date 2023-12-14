@@ -30,7 +30,7 @@
                     </effect>
                 </ImageView>
             <TextField fx:id="fullAnswer_field" layoutX="560.0" layoutY="250.0" prefHeight="26.0" prefWidth="434.0" promptText="Ответ" />
-            <Label fx:id="quest_field" layoutX="472.0" layoutY="60.0" prefHeight="31.0" prefWidth="794.0" textFill="#d1c2c2">
+            <Label fx:id="quest_field" layoutX="370.0" layoutY="60.0" prefHeight="31.0" prefWidth="907.0" textFill="#d1c2c2">
                <font>
                   <Font name="Corbel" size="22.0" />
                </font>

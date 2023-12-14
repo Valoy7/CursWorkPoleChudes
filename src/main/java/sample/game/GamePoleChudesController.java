@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.text.Normalizer;
 
 import DB.DatabaseHandler;
 import DB.NowLogInUser;
@@ -211,6 +212,7 @@ public class GamePoleChudesController {
         System.out.println("ETO OTVET: " + nowAnswer);
         // Предположим, что quest_field - это TextField, но замените на соответствующий тип элемента интерфейса
         quest_field.setText(nowQuest);
+        displayEmptyAnswer(nowAnswer);
 
         //NowPlayers nowPlayers = NowPlayers();
         String firstPlayer = NowPlayers.getFirstPlayer();
@@ -441,6 +443,14 @@ public class GamePoleChudesController {
             fifth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         }
 
+    }
+
+    public void displayEmptyAnswer(String nowAnswer) {
+        // Заменяем только буквы на символы " _ "
+        String emptyAnswer = nowAnswer.replaceAll("[а-яА-ЯёЁ]", "_ ");
+
+        // Предполагаем, что rightAnswer_field - это ваш элемент интерфейса (TextField или что-то подобное)
+        rightAnswer_field.setText(emptyAnswer.trim());
     }
 
 }
