@@ -17,9 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -39,7 +37,16 @@ public class GamePoleChudesController {
 
     @FXML
     private Button ReturnLobbyButton;
-
+    @FXML
+    private TableColumn<String, ?> best_score_column;
+    @FXML
+    private TableColumn<String, ?> last_score_column;
+    @FXML
+    private TableColumn<String, ?> player_name_column;
+    @FXML
+    private TableView<?> score_table;
+    @FXML
+    private Button look_score_button;
     @FXML
     private ImageView baraban_img;
     private static final int ROTATION_DURATION = 200; // длительность вращения в миллисекундах
@@ -436,8 +443,17 @@ public class GamePoleChudesController {
     private void chooseField (String nowUser, int CurrPlayerIndex) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
         String currentPlayer = playersList.get(CurrPlayerIndex);
-        System.out.println("YA TUT "+ currentPlayer);
-        System.out.println("ZDEC "+ CurrPlayerIndex);
+
+        int last_score = databaseHandler.getLastScore(nowUser, currentPlayer);
+
+        Integer maxScore = databaseHandler.getMaxScore(nowUser, currentPlayer);
+
+        if (maxScore == null) {
+            databaseHandler.insertMaxScore(nowUser, currentPlayer, last_score);
+        }
+        if (last_score >= maxScore) {
+            databaseHandler.updateMaxScore(nowUser, currentPlayer, last_score);
+        }
         if(CurrPlayerIndex == 0) {
             first_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         } else if(CurrPlayerIndex == 1) {

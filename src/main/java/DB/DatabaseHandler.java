@@ -492,4 +492,83 @@ public class DatabaseHandler extends Configs {
 
         return answerText;
     }
+
+    public Integer  getMaxScore(String nowUser, String currentPlayer) {
+        Integer  maxScore = 0;
+
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+
+        try (Connection connection = databaseHandler.getDbConnection()) {
+            int nowUserId = databaseHandler.getUserIdByName(nowUser);
+            String query = "SELECT "+ Const.MAX_SCORE +" FROM " + Const.GAMERS_TABLE + " WHERE " +
+                    Const.NICKNAME + " = ? AND " + Const.USERS_ID + " = ?";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                preparedStatement.setString(1, currentPlayer);
+                preparedStatement.setInt(2, nowUserId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    maxScore = resultSet.getInt(Const.MAX_SCORE);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return maxScore;
+    }
+
+    public void updateMaxScore(String nowUser, String currentPlayer, int currentScore) {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+
+        try {
+            int nowUserId = databaseHandler.getUserIdByName(nowUser);
+
+            try (Connection connection = databaseHandler.getDbConnection()) {
+                // Проверяем текущий MAX_SCORE
+                int maxScore = getMaxScore(nowUser, currentPlayer);
+
+                // Если текущий счет больше текущего MAX_SCORE, обновляем MAX_SCORE
+                if (currentScore > maxScore) {
+                    String updateQuery = "UPDATE " + Const.GAMERS_TABLE + " SET " +
+                            Const.MAX_SCORE + " = ? WHERE " +
+                            Const.NICKNAME + " = ? AND " + Const.USERS_ID + " = ?";
+
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+                        preparedStatement.setInt(1, currentScore);
+                        preparedStatement.setString(2, currentPlayer);
+                        preparedStatement.setInt(3, nowUserId);
+                        preparedStatement.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertMaxScore(String nowUser, String currentPlayer, int currentScore) {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+
+        try (Connection connection = databaseHandler.getDbConnection()) {
+            int nowUserId = databaseHandler.getUserIdByName(nowUser);
+
+            String insertQuery = "INSERT INTO " + Const.GAMERS_TABLE + " (" +
+                    Const.USERS_ID + ", " + Const.NICKNAME + ", " + Const.MAX_SCORE + ") " +
+                    "VALUES (?, ?, ?)";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+                preparedStatement.setInt(1, nowUserId);
+                preparedStatement.setString(2, currentPlayer);
+                preparedStatement.setInt(3, currentScore);
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
