@@ -219,9 +219,13 @@ public class GamePoleChudesController {
 
 
         checkAnswerButton.setOnAction(event -> {
-            // Получаем значение из поля fullAnswer_field
-            String userAnswer = fullAnswer_field.getText().trim();
+            if(canSpin) {
+                // Получаем значение из поля fullAnswer_field
 
+                system_field.setText("Сначала нужно прокрутить барабан!");
+                return;
+            }
+            String userAnswer = fullAnswer_field.getText().trim();
             // Проверка на пустоту
             if (userAnswer.isEmpty()) {
                 // Если поле пустое, выводим сообщение в system_field
@@ -240,11 +244,25 @@ public class GamePoleChudesController {
                     repeatGameButton.setVisible(true);
                     look_score_button.setVisible(true);
                 } else {
-                    // Если ответ неверный, выводим сообщение в system_field
-                    system_field.setText("Неверный ответ!");
-                    wordEntered = true;
-                    //letterChosen = true;
-                    return;
+                    String currentPlayer = playersList.get(currentPlayerIndex);
+                    databaseHandler.bankruptScore(NowUser, currentPlayer);
+                    system_field.setText(currentPlayer + ", неверный ответ! Ход следующего!");
+                    try {
+                        chooseField(NowUser, currentPlayerIndex);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                    canSpin = true;
+                    canletterChosen = false;
+                    currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
+                    //System.out.println("TUTOCHKI_BANCROT " + playersList.get(currentPlayerIndex));
+
+                    String curPlayer = playersList.get(currentPlayerIndex);
+                    yourTurn_field.setText(curPlayer);
+                    canSpin = true;
+                    canletterChosen = false;
 
                 }
             }
