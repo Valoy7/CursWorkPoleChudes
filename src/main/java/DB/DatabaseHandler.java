@@ -383,4 +383,20 @@ public class DatabaseHandler extends Configs {
 
     }
 
+    public void bankruptScore(String player) {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        int newScore = 0;
+        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = " +
+                newScore + " WHERE " + Const.NICKNAME + " = " + player;
+
+        try (Connection connection = getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, newScore);
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

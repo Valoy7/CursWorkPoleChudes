@@ -103,6 +103,61 @@
                </font>
             </Label>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1c2e3e" height="40.0" layoutX="314.0" layoutY="470.0" rotate="-18.4" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+            <Label fx:id="system_field1" layoutX="461.0" layoutY="407.0" prefHeight="31.0" prefWidth="142.0" text="Счет игроков:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="firts_playerName_field" layoutX="461.0" layoutY="453.0" prefHeight="31.0" prefWidth="142.0" text="Первый игрок" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="second_playerName_field" layoutX="461.0" layoutY="495.0" prefHeight="31.0" prefWidth="142.0" text="Первый игрок" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="third_playerName_field" layoutX="720.0" layoutY="453.0" prefHeight="31.0" prefWidth="142.0" text="Первый игрок" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="fourth_playerName_field" layoutX="720.0" layoutY="495.0" prefHeight="31.0" prefWidth="142.0" text="Первый игрок" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="fifth_playerName_field" layoutX="994.0" layoutY="453.0" prefHeight="31.0" prefWidth="142.0" text="Первый игрок" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="firts_playerScore_field" layoutX="603.0" layoutY="453.0" prefHeight="31.0" prefWidth="94.0" text="Счет:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="second_playerScore_field" layoutX="603.0" layoutY="495.0" prefHeight="31.0" prefWidth="94.0" text="Счет:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="third_playerScore_field" layoutX="869.0" layoutY="453.0" prefHeight="31.0" prefWidth="94.0" text="Счет:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="fourth_playerScore_field" layoutX="869.0" layoutY="495.0" prefHeight="31.0" prefWidth="94.0" text="Счет:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="fifth_playerScore_field" layoutX="1142.0" layoutY="453.0" prefHeight="31.0" prefWidth="94.0" text="Счет:" textFill="#d1c2c2">
+               <font>
+                  <Font name="Corbel" size="22.0" />
+               </font>
+            </Label>
             </children></AnchorPane>
         <Label layoutX="537.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>

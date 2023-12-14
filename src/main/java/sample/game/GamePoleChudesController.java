@@ -59,6 +59,33 @@ public class GamePoleChudesController {
 
     @FXML
     private Label yourTurn_field;
+    @FXML
+    private Label fifth_playerName_field;
+
+    @FXML
+    private Label fifth_playerScore_field;
+
+    @FXML
+    private Label firts_playerName_field;
+
+    @FXML
+    private Label firts_playerScore_field;
+
+    @FXML
+    private Label fourth_playerName_field;
+
+    @FXML
+    private Label fourth_playerScore_field;
+    @FXML
+    private Label second_playerName_field;
+
+    @FXML
+    private Label second_playerScore_field;
+    @FXML
+    private Label third_playerName_field;
+
+    @FXML
+    private Label third_playerScore_field;
 
     @FXML
     private Button Ё_button;
@@ -187,6 +214,18 @@ public class GamePoleChudesController {
         String fourthPlayer = NowPlayers.getFourthPlayer();
         String fifthPlayer = NowPlayers.getFifthPlayer();
 
+        System.out.println(firstPlayer);
+        if(firstPlayer != null && !firstPlayer.isEmpty()) {
+        firts_playerName_field.setText(firstPlayer);} else firts_playerName_field.setText("");
+        if(secondPlayer != null && !secondPlayer.isEmpty()) {
+            second_playerName_field.setText(secondPlayer);} else second_playerName_field.setText("");
+        if(thirdPlayer != null && !thirdPlayer.isEmpty()) {
+            third_playerName_field.setText(thirdPlayer);} else third_playerName_field.setText("");
+        if(fourthPlayer != null && !fourthPlayer.isEmpty()) {
+            fourth_playerName_field.setText(fourthPlayer);} else fourth_playerName_field.setText("");
+        if(fifthPlayer != null && !fifthPlayer.isEmpty()) {
+            fifth_playerName_field.setText(fifthPlayer);} else fifth_playerName_field.setText("");
+
 
         // кнопка возвращения на главный экран
         ReturnLobbyButton.setOnAction(actionEvent -> {
@@ -263,24 +302,40 @@ public class GamePoleChudesController {
     private void handleRotationResult(int sector, String player) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
 
-        if (sector == 2) {
+        if (sector == 1) {
+          //  databaseHandler.updateScore(player, 100);
+            system_field.setText("У " + player + " прекрасная возможность покрутить барабан еще раз!");
+            rotateBaraban();
+        } else if (sector == 2) {
             databaseHandler.updateScore(player, 100);
+            system_field.setText(player + " получил 100 очков!");
         } else if (sector == 3) {
             databaseHandler.updateScore(player, databaseHandler.getLastScore(player) * 2);  // Используйте экземпляр
+            system_field.setText(player + " удвоил свои очки!");
         } else if (sector == 4) {
             databaseHandler.updateScore(player, 50);
-        } else if (sector == 6) {
+            system_field.setText(player + " получил 50 очков!");
+        } else if (sector == 5) {
+            databaseHandler.bankruptScore(player);
+            system_field.setText(player + " банкрот, о нет!");
+        }else if (sector == 6) {
             databaseHandler.updateScore(player, 350);
+            system_field.setText(player + " получил 350 очков, поздравляем!");
         } else if (sector == 8) {
             databaseHandler.updateScore(player, 300);
+            system_field.setText(player + " получил 350 очков, поздравляем!");
         } else if (sector == 9) {
             databaseHandler.updateScore(player, 250);
+            system_field.setText(player + " получил 250 очков!");
         } else if (sector == 10) {
             databaseHandler.updateScore(player, 500);
+            system_field.setText("Не может быть, " + player + " получил 500 очков!");
         } else if (sector == 11) {
             databaseHandler.updateScore(player, 200);
+            system_field.setText(player + " получил 200 очков!");
         } else if (sector == 12) {
             databaseHandler.updateScore(player, 150);
+            system_field.setText(player + " получил 150 очков!");
         }
 
     }
