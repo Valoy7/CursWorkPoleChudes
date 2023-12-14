@@ -98,6 +98,7 @@ public class GamePoleChudesController {
     private int currentPlayerIndex = 0;
     private boolean letterChosen = false;
     private boolean canSpin = true;
+    private boolean canletterChosen = false;
     private boolean wordEntered = false; // флаг, указывающий, было ли введено слово целиком
     //private boolean letterChosen = false; // флаг, указывающий, была ли выбрана буква
     @FXML
@@ -308,6 +309,7 @@ public class GamePoleChudesController {
         });
 
         canSpin = false;
+        canletterChosen = true;
         // Устанавливаем параметры анимации
         timeline.setCycleCount(1);
         timeline.play();
@@ -414,6 +416,11 @@ public class GamePoleChudesController {
             return;
         }
 
+        if (!canletterChosen) {
+            // Если буква уже была выбрана, выводим сообщение и не обрабатываем нажатие
+            system_field.setText("Сначала игрок должен покрутить барабан!");
+            return;
+        }
         if (letterChosen) {
             // Если буква уже была выбрана, выводим сообщение и не обрабатываем нажатие
             system_field.setText("Вы уже выбрали букву! Следующий игрок должен покрутить барабан!");
