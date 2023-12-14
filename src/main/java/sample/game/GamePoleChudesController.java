@@ -148,7 +148,7 @@ public class GamePoleChudesController {
         // Вызываем метод getRandomQuestion через созданный экземпляр
         String nowQuest = databaseHandler.getRandomQuestion(complexity);
         String nowAnswer = databaseHandler.getAnswerByQuest(nowQuest);
-        System.out.println("ETO OTVET: " + nowAnswer);
+
         // Предположим, что quest_field - это TextField, но замените на соответствующий тип элемента интерфейса
         quest_field.setText(nowQuest);
         displayEmptyAnswer(nowAnswer);
@@ -393,6 +393,8 @@ public class GamePoleChudesController {
         if (sector == 1) {
 
             system_field.setText("У " + player + " возможность покрутить барабан еще раз! Или лучше буква?");
+            canSpin = true;
+            canletterChosen = true;
             baraban_img.setOnMouseClicked(event -> {
                 rotateBaraban();
             });
