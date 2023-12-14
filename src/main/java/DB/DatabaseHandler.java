@@ -1,10 +1,9 @@
 package DB;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 
 public class DatabaseHandler extends Configs {
     Connection dbConnection;
@@ -571,4 +570,39 @@ public class DatabaseHandler extends Configs {
     }
 
 
+    public ObservableList<PlayerScore> getPlayerScores(String nowUser) throws SQLException, ClassNotFoundException {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        Connection connection = databaseHandler.getDbConnection();
+
+        String selectQuery = "SELECT " + Const.NICKNAME + ", " + Const.LAST_SCORE + ", " + Const.MAX_SCORE +
+                " FROM " + Const.GAMERS_TABLE + " WHERE " + Const.USERS_ID + "= ?";
+
+        int nowUserId = databaseHandler.getUserIdByName(nowUser);
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+            preparedStatement.setInt(1, nowUserId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            ObservableList<PlayerScore> playerScores = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String playerName = resultSet.getString(Const.NICKNAME);
+                int lastScore = resultSet.getInt(Const.LAST_SCORE);
+                int bestScore = resultSet.getInt(Const.MAX_SCORE);
+
+                PlayerScore playerScore = new PlayerScore(playerName, lastScore, bestScore);
+                playerScores.add(playerScore);
+            }
+
+            return playerScores;
+        }
+    }
+
+
+    public ResultSet getAllGamers() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM "+ Const.GAMERS_TABLE;
+        PreparedStatement prSt = getDbConnection().prepareStatement(query);
+        return prSt.executeQuery();
+    }
 }

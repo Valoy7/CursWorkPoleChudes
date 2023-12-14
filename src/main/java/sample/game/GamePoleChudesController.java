@@ -2,22 +2,25 @@ package sample.game;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import DB.Const;
 import DB.DatabaseHandler;
 import DB.NowLogInUser;
+import DB.PlayerScore;
 import javafx.animation.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -38,13 +41,15 @@ public class GamePoleChudesController {
     @FXML
     private Button ReturnLobbyButton;
     @FXML
-    private TableColumn<String, ?> best_score_column;
+    private TableColumn<PlayerScore, String> player_name_column;
+
     @FXML
-    private TableColumn<String, ?> last_score_column;
+    private TableColumn<PlayerScore, Integer> last_score_column;
+
     @FXML
-    private TableColumn<String, ?> player_name_column;
+    private TableColumn<PlayerScore, Integer> best_score_column;
     @FXML
-    private TableView<?> score_table;
+    private TableView<PlayerScore> score_table;
     @FXML
     private Button look_score_button;
     @FXML
@@ -114,10 +119,20 @@ public class GamePoleChudesController {
     private boolean wordEntered = false; // флаг, указывающий, было ли введено слово целиком
     //private boolean letterChosen = false; // флаг, указывающий, была ли выбрана буква
     @FXML
+    <ScoreRecord>
     void initialize() {
        // AtomicBoolean gameWon = new AtomicBoolean(false);
         login_field.setText(NowLogInUser.getLoggedInUsername());
         String NowUser =  NowLogInUser.getLoggedInUsername();
+
+// Инициализация колонок таблицы
+        player_name_column.setCellValueFactory(cellData -> cellData.getValue().playerNameProperty());
+        last_score_column.setCellValueFactory(cellData -> cellData.getValue().lastScoreProperty().asObject());
+        best_score_column.setCellValueFactory(cellData -> cellData.getValue().bestScoreProperty().asObject());
+
+
+// Обновление данных таблицы
+        updateTableGamers();
 
         // обработчик события для кнопки кручения барабана
         baraban_img.setOnMouseClicked(event -> {
@@ -223,6 +238,7 @@ public class GamePoleChudesController {
                     rightAnswer_field.setText(correctAnswer);
                     gameWon.set(true);
                     repeatGameButton.setVisible(true);
+                    look_score_button.setVisible(true);
                 } else {
                     // Если ответ неверный, выводим сообщение в system_field
                     system_field.setText("Неверный ответ!");
@@ -253,6 +269,32 @@ public class GamePoleChudesController {
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();
+        });
+
+
+        look_score_button.setOnAction(event -> {
+
+            score_table.setVisible(true);
+            // Очищаем старые данные
+            score_table.getItems().clear();
+
+            try {
+                ObservableList<PlayerScore> playerScores = databaseHandler.getPlayerScores(NowUser);
+// Получение данных из базы данных
+
+
+// Вывод данных в консоль
+                for (PlayerScore playerScore : playerScores) {
+                    System.out.println("Player Name: " + playerScore.getPlayerName());
+                    System.out.println("Last Score: " + playerScore.getLastScore());
+                    System.out.println("Best Score: " + playerScore.getBestScore());
+                    System.out.println();
+                }
+                // Заполняем таблицу новыми данными
+                score_table.setItems(playerScores);
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         });
 
     }
@@ -551,8 +593,28 @@ public class GamePoleChudesController {
             system_field.setText("Победил " + currentPlayer + ", поздравляем!");
             gameWon.set(true);
             repeatGameButton.setVisible(true);
+            look_score_button.setVisible(true);
         }
     }
+    private void updateTableGamers() {
+        // Получаем данные из БД и обновляем таблицу
+        try {
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            ObservableList<PlayerScore> gamerList = FXCollections.observableArrayList();
 
+            ResultSet gamerResultSet = databaseHandler.getAllGamers();
+            while (gamerResultSet.next()) {
+                String playerName = gamerResultSet.getString(Const.NICKNAME);
+                int lastScore = gamerResultSet.getInt(Const.LAST_SCORE);
+                int bestScore = gamerResultSet.getInt(Const.MAX_SCORE);
+
+                gamerList.add(new PlayerScore(playerName, lastScore, bestScore));
+            }
+
+            score_table.setItems(gamerList);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
