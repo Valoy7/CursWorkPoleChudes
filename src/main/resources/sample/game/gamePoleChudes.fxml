@@ -99,7 +99,7 @@
             </Label>
             <Label fx:id="rightAnswer_field" layoutX="560.0" layoutY="127.0" prefHeight="31.0" prefWidth="320.0" textFill="#d1c2c2">
                <font>
-                  <Font name="Corbel" size="22.0" />
+                  <Font name="Corbel" size="30.0" />
                </font>
             </Label>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1c2e3e" height="40.0" layoutX="314.0" layoutY="470.0" rotate="-18.4" stroke="BLACK" strokeType="INSIDE" width="14.0" />

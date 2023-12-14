@@ -485,7 +485,7 @@ public class GamePoleChudesController {
 
     public void displayEmptyAnswer(String nowAnswer) {
         // Заменяем только буквы на символы " _ "
-        String emptyAnswer = nowAnswer.replaceAll("[а-яА-ЯёЁ]", "_ ");
+        String emptyAnswer = nowAnswer.replaceAll("[а-яА-ЯёЁ]", "_");
 
 
         rightAnswer_field.setText(emptyAnswer.trim());
@@ -533,15 +533,22 @@ public class GamePoleChudesController {
     private void updateRightAnswerField(String guessedLetter, String correctAnswer) {
         StringBuilder updatedAnswer = new StringBuilder(rightAnswer_field.getText());
 
+        int currentPosition = 0;
+
         for (int i = 0; i < correctAnswer.length(); i++) {
-            if (correctAnswer.charAt(i) == guessedLetter.charAt(0)) {
-                updatedAnswer.setCharAt(i * 2, guessedLetter.charAt(0));
+            char currentChar = correctAnswer.charAt(i);
+            char letter = guessedLetter.charAt(0);
+
+            if (Character.toLowerCase(letter) == Character.toLowerCase(currentChar)) {
+                updatedAnswer.setCharAt(currentPosition, currentChar);
+                currentPosition++;
+            } else {
+                currentPosition++;
             }
         }
 
         rightAnswer_field.setText(updatedAnswer.toString());
     }
-
 
 
 }
