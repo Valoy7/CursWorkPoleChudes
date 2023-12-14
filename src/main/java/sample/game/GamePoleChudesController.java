@@ -273,8 +273,11 @@ public class GamePoleChudesController {
 
 
         look_score_button.setOnAction(event -> {
-
-            score_table.setVisible(true);
+            if (score_table.isVisible()) {
+                score_table.setVisible(false);
+            } else {
+                score_table.setVisible(true);
+            }
             // Очищаем старые данные
             score_table.getItems().clear();
 

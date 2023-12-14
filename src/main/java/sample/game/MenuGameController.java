@@ -145,49 +145,93 @@ public class MenuGameController {
 
 
         startGameButton.setOnAction(actionEvent -> {
-            // Записываем выбранную сложность
-            String selectedComplexity = complexityDropDownButton.getValue();
-            if (selectedComplexity != null) {
-                NowPlayers.setComplexity(selectedComplexity);
-            }
+            boolean fieldsFilled = true;
 
-            if (!firstPlayer_field.getText().isEmpty()) {
+            if (firstPlayer_field.isVisible() && firstPlayer_field.getText().isEmpty()) {
+                setRedBorder(firstPlayer_field);
+                fieldsFilled = false;
+            } else {
+                setDefaultBorder(firstPlayer_field);
                 NowPlayers.setFirstPlayer(firstPlayer_field.getText());
             }
 
-            if (!secondPlayer_field.getText().isEmpty()) {
+            if (secondPlayer_field.isVisible() && secondPlayer_field.getText().isEmpty()) {
+                setRedBorder(secondPlayer_field);
+                fieldsFilled = false;
+            } else {
+                setDefaultBorder(secondPlayer_field);
                 NowPlayers.setSecondPlayer(secondPlayer_field.getText());
             }
 
-            if (!thirdPlayer_field.getText().isEmpty()) {
+            if (thirdPlayer_field.isVisible() && thirdPlayer_field.getText().isEmpty()) {
+                setRedBorder(thirdPlayer_field);
+                fieldsFilled = false;
+            } else {
+                setDefaultBorder(thirdPlayer_field);
                 NowPlayers.setThirdPlayer(thirdPlayer_field.getText());
             }
 
-            if (!fourthPlayer_field.getText().isEmpty()) {
+            if (fourthPlayer_field.isVisible() && fourthPlayer_field.getText().isEmpty()) {
+                setRedBorder(fourthPlayer_field);
+                fieldsFilled = false;
+            } else {
+                setDefaultBorder(fourthPlayer_field);
                 NowPlayers.setFourthPlayer(fourthPlayer_field.getText());
             }
 
-            if (!fifthPlayer_field.getText().isEmpty()) {
+            if (fifthPlayer_field.isVisible() && fifthPlayer_field.getText().isEmpty()) {
+                setRedBorder(fifthPlayer_field);
+                fieldsFilled = false;
+            } else {
+                setDefaultBorder(fifthPlayer_field);
                 NowPlayers.setFifthPlayer(fifthPlayer_field.getText());
             }
-            startGameButton.getScene().getWindow().hide();
-            // всё это для отображения нужного окна
-            FXMLLoader loader =  new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/game/gamePoleChudes.fxml"));
 
-            try {
-                loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            // Проверка на выбранную сложность и ее установка
+            String selectedComplexity = complexityDropDownButton.getValue();
+            if (selectedComplexity == null) {
+                ObservableList<String> items = complexityDropDownButton.getItems();
+                selectedComplexity = items.get((int) (Math.random() * items.size()));
+                complexityDropDownButton.setValue(selectedComplexity);
             }
+            NowPlayers.setComplexity(selectedComplexity);
 
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            // root параметр, который нужно подключить
-            stage.setScene(new Scene(root));
-            stage.show();
+            if (fieldsFilled) {
+                startGameButton.getScene().getWindow().hide();
+                // всё это для отображения нужного окна
+                FXMLLoader loader =  new FXMLLoader();
+                loader.setLocation(getClass().getResource("/sample/game/gamePoleChudes.fxml"));
+
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                Parent root = loader.getRoot();
+                Stage stage = new Stage();
+                // root параметр, который нужно подключить
+                stage.setScene(new Scene(root));
+                stage.show();
+            }
         });
 
+//        complexityDropDownButton.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue == null) {
+//                // Если ничего не выбрано, выберем сложность случайным образом
+//                ObservableList<String> items = complexityDropDownButton.getItems();
+//                complexityDropDownButton.setValue(items.get((int) (Math.random() * items.size())));
+//            }
+//        });
 
+    }
+    // Методы для установки и сброса красной рамки
+    private void setRedBorder(TextField textField) {
+        textField.setStyle("-fx-border-color: red;");
+        textField.textProperty().addListener((observable, oldValue, newValue) -> setDefaultBorder(textField));
+    }
+
+    private void setDefaultBorder(TextField textField) {
+        textField.setStyle(""); // Установите стандартный стиль рамки
     }
 }
