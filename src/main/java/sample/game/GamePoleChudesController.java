@@ -360,6 +360,10 @@ public class GamePoleChudesController {
             databaseHandler.updateScore(player, 350);
             system_field.setText(player + " получил 350 очков, поздравляем!");
             int lastSector = 6;
+        } else if (sector == 7) {
+            databaseHandler.updateScore(player, 0);
+            system_field.setText(player + " ничего не получает, ход переходит следующему игроку!");
+            int lastSector = 7;
         } else if (sector == 8) {
             databaseHandler.updateScore(player, 300);
             system_field.setText(player + " получил 300 очков, поздравляем!");
