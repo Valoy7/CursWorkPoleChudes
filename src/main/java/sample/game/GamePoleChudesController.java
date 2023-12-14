@@ -90,107 +90,16 @@ public class GamePoleChudesController {
     @FXML
     private Label third_playerScore_field;
 
-    @FXML
-    private Button Ё_button;
 
-    @FXML
-    private Button Б_button;
-
-    @FXML
-    private Button В_button;
-
-    @FXML
-    private Button Г_button;
-
-    @FXML
-    private Button Д_button;
-
-    @FXML
-    private Button Е_button;
-
-    @FXML
-    private Button Ж_button;
-
-    @FXML
-    private Button З_button;
-
-    @FXML
-    private Button И_button;
-
-    @FXML
-    private Button Й_button;
-
-    @FXML
-    private Button К_button;
-
-    @FXML
-    private Button Л_button;
-
-    @FXML
-    private Button М_button;
-
-    @FXML
-    private Button Н_button;
-
-    @FXML
-    private Button О_button;
-
-    @FXML
-    private Button П_button;
-
-    @FXML
-    private Button Р_button;
-
-    @FXML
-    private Button С_button;
-
-    @FXML
-    private Button Т_button;
-
-    @FXML
-    private Button У_button;
-
-    @FXML
-    private Button Ф_button;
-
-    @FXML
-    private Button Х_button;
-
-    @FXML
-    private Button Ц_button;
-
-    @FXML
-    private Button Ч_button;
-
-    @FXML
-    private Button Ш_button;
-
-    @FXML
-    private Button Щ_button;
-
-    @FXML
-    private Button Ъ_button;
-
-    @FXML
-    private Button Ы_button;
-
-    @FXML
-    private Button Ь_button;
-
-    @FXML
-    private Button Э_button;
-
-    @FXML
-    private Button Ю_button;
-
-    @FXML
-    private Button Я_button;
     @FXML
     private Label login_field;
     private AtomicBoolean gameWon = new AtomicBoolean(false);
     private List<String> playersList = new ArrayList<>();
     private int currentPlayerIndex = 0;
     private boolean letterChosen = false;
+    private boolean canSpin = true;
+    private boolean wordEntered = false; // флаг, указывающий, было ли введено слово целиком
+    //private boolean letterChosen = false; // флаг, указывающий, была ли выбрана буква
     @FXML
     void initialize() {
        // AtomicBoolean gameWon = new AtomicBoolean(false);
@@ -303,7 +212,11 @@ public class GamePoleChudesController {
                     repeatGameButton.setVisible(true);
                 } else {
                     // Если ответ неверный, выводим сообщение в system_field
-                    system_field.setText("Неверный ответ. Попробуйте еще раз.");
+                    system_field.setText("Неверный ответ!");
+                    wordEntered = true;
+                    //letterChosen = true;
+                    return;
+
                 }
             }
         });
@@ -316,6 +229,9 @@ public class GamePoleChudesController {
         if (gameWon.get()) {
             system_field.setText("Игра закончена, нельзя крутить барабан!");
             // Если игра уже выиграна, не запускаем новую анимацию
+            return;
+        } else  if (!canSpin) {
+            // Если нельзя крутить барабан, выход из метода
             return;
         }
         login_field.setText(NowLogInUser.getLoggedInUsername());
@@ -391,10 +307,11 @@ public class GamePoleChudesController {
             System.out.println("Current Player: " + currentPlayer);
         });
 
-
+        canSpin = false;
         // Устанавливаем параметры анимации
         timeline.setCycleCount(1);
         timeline.play();
+
     }
     private void handleRotationResult(int sector, String player, String nowUser) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
@@ -484,11 +401,10 @@ public class GamePoleChudesController {
     }
 
     public void displayEmptyAnswer(String nowAnswer) {
-        // Заменяем только буквы на символы " _ "
+        // Заменяем только буквы на символы "_"
         String emptyAnswer = nowAnswer.replaceAll("[а-яА-ЯёЁ]", "_");
 
-
-        rightAnswer_field.setText(emptyAnswer.trim());
+        rightAnswer_field.setText(emptyAnswer);
     }
 
     @FXML
@@ -513,7 +429,7 @@ public class GamePoleChudesController {
         String correctAnswer = databaseHandler.getAnswerByQuest(quest_field.getText());
 
         // Помечаем, что буква уже выбрана
-        letterChosen = true;
+       // letterChosen = true;
 
         // Проверяем, содержится ли буква в правильном ответе
         if (correctAnswer.toLowerCase().contains(buttonText.toLowerCase())) {
@@ -521,11 +437,18 @@ public class GamePoleChudesController {
             updateRightAnswerField(buttonText, correctAnswer);
             // Делаем кнопку зеленой
             clickedButton.setStyle("-fx-background-color: green;");
+            letterChosen = true;
+            // Буква была выбрана
+
+            // Разрешаем крутить барабан
+            canSpin = true;
         } else {
             // Выводим сообщение об ошибке в system_field
             system_field.setText("Вы не угадали!");
             // Делаем кнопку темно-серой
             clickedButton.setStyle("-fx-background-color: darkgray;");
+            letterChosen = true;
+            canSpin = true;
         }
 
     }
@@ -540,11 +463,10 @@ public class GamePoleChudesController {
             char letter = guessedLetter.charAt(0);
 
             if (Character.toLowerCase(letter) == Character.toLowerCase(currentChar)) {
-                updatedAnswer.setCharAt(currentPosition, currentChar);
-                currentPosition++;
-            } else {
-                currentPosition++;
+                updatedAnswer.setCharAt(currentPosition , currentChar);
             }
+
+            currentPosition++;
         }
 
         rightAnswer_field.setText(updatedAnswer.toString());
