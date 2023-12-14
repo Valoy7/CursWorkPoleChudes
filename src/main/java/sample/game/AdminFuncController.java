@@ -17,6 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AdminFuncController {
 
+    private static final int MAX_CHARACTERS = 80;
+    private static final int MAX_CHARACTERS_ANSW = 50;
     @FXML
     private ResourceBundle resources;
 
@@ -138,11 +140,29 @@ public class AdminFuncController {
         // Заполняем выпадающие списки данными из БД
         fillComboBoxes();
 
+        TextFormatter<String> textFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > MAX_CHARACTERS) {
+                change.setText(change.getControlText().substring(0, MAX_CHARACTERS));
+            }
+            return change;
+        });
+
+        TextFormatter<String> textFormatterAnsw = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.length() > MAX_CHARACTERS_ANSW) {
+                change.setText(change.getControlText().substring(0, MAX_CHARACTERS_ANSW));
+            }
+            return change;
+        });
         insertQuestButton.setOnAction(actionEvent -> {
-            String insertQuest = questInsert_field.getText();
-            String insertAnswer = answerInsert_field.getText();
+            questInsert_field.setTextFormatter(textFormatter);
+            answerInsert_field.setTextFormatter(textFormatterAnsw);
             String selectedCategory = categoryComboBox.getValue();
             String selectedComplexity = complexityComboBox.getValue();
+
+            String insertQuest = questInsert_field.getText();
+            String insertAnswer = answerInsert_field.getText();
 
             // Получаем id категории и сложности из БД
             int categoryId = getCategoryId(selectedCategory);
