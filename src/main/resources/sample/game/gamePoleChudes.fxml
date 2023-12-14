@@ -37,39 +37,39 @@
             </Label>
             <Pane fx:id="word_field" layoutX="1019.0" layoutY="154.0" prefHeight="154.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="A_button" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="А" />
-                  <Button fx:id="Б_button" layoutX="34.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Б" />
-                  <Button fx:id="В_button" layoutX="68.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="В" />
-                  <Button fx:id="Г_button" layoutX="100.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Г" />
-                  <Button fx:id="Д_button" layoutX="134.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Д" />
-                  <Button fx:id="Е_button" layoutX="166.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Е" />
-                  <Button fx:id="Ё_button" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ё" />
-                  <Button fx:id="Ж_button" layoutX="34.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ж" />
-                  <Button fx:id="З_button" layoutX="68.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="З" />
-                  <Button fx:id="И_button" layoutX="100.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="И" />
-                  <Button fx:id="Й_button" layoutX="134.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Й" />
-                  <Button fx:id="К_button" layoutX="166.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="К" />
-                  <Button fx:id="Л_button" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Л" />
-                  <Button fx:id="М_button" layoutX="34.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="М" />
-                  <Button fx:id="Н_button" layoutX="68.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Н" />
-                  <Button fx:id="О_button" layoutX="100.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="О" />
-                  <Button fx:id="П_button" layoutX="134.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="П" />
-                  <Button fx:id="Р_button" layoutX="166.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Р" />
-                  <Button fx:id="С_button" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="С" />
-                  <Button fx:id="Т_button" layoutX="34.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Т" />
-                  <Button fx:id="У_button" layoutX="68.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="У" />
-                  <Button fx:id="Ф_button" layoutX="100.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ф" />
-                  <Button fx:id="Х_button" layoutX="134.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Х" />
-                  <Button fx:id="Ц_button" layoutX="166.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ц" />
-                  <Button fx:id="Ч_button" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ч" />
-                  <Button fx:id="Ш_button" layoutX="34.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ш" />
-                  <Button fx:id="Щ_button" layoutX="68.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Щ" />
-                  <Button fx:id="Ъ_button" layoutX="100.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ъ" />
-                  <Button fx:id="Ы_button" layoutX="134.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ы" />
-                  <Button fx:id="Ь_button" layoutX="166.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ь" />
-                  <Button fx:id="Э_button" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Э" />
-                  <Button fx:id="Ю_button" layoutX="34.0" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Ю" />
-                  <Button fx:id="Я_button" layoutX="68.0" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="34.0" text="Я" />
+                  <Button fx:id="A_button" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="А" />
+                  <Button fx:id="Б_button" layoutX="34.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Б" />
+                  <Button fx:id="В_button" layoutX="68.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="В" />
+                  <Button fx:id="Г_button" layoutX="100.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Г" />
+                  <Button fx:id="Д_button" layoutX="134.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Д" />
+                  <Button fx:id="Е_button" layoutX="166.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Е" />
+                  <Button fx:id="Ё_button" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ё" />
+                  <Button fx:id="Ж_button" layoutX="34.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ж" />
+                  <Button fx:id="З_button" layoutX="68.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="З" />
+                  <Button fx:id="И_button" layoutX="100.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="И" />
+                  <Button fx:id="Й_button" layoutX="134.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Й" />
+                  <Button fx:id="К_button" layoutX="166.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="К" />
+                  <Button fx:id="Л_button" layoutY="52.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Л" />
+                  <Button fx:id="М_button" layoutX="34.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="М" />
+                  <Button fx:id="Н_button" layoutX="68.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Н" />
+                  <Button fx:id="О_button" layoutX="100.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="О" />
+                  <Button fx:id="П_button" layoutX="134.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="П" />
+                  <Button fx:id="Р_button" layoutX="166.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Р" />
+                  <Button fx:id="С_button" layoutY="77.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="С" />
+                  <Button fx:id="Т_button" layoutX="34.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Т" />
+                  <Button fx:id="У_button" layoutX="68.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="У" />
+                  <Button fx:id="Ф_button" layoutX="100.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ф" />
+                  <Button fx:id="Х_button" layoutX="134.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Х" />
+                  <Button fx:id="Ц_button" layoutX="166.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ц" />
+                  <Button fx:id="Ч_button" layoutY="102.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ч" />
+                  <Button fx:id="Ш_button" layoutX="34.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ш" />
+                  <Button fx:id="Щ_button" layoutX="68.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Щ" />
+                  <Button fx:id="Ъ_button" layoutX="100.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ъ" />
+                  <Button fx:id="Ы_button" layoutX="134.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ы" />
+                  <Button fx:id="Ь_button" layoutX="166.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ь" />
+                  <Button fx:id="Э_button" layoutY="127.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Э" />
+                  <Button fx:id="Ю_button" layoutX="34.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Ю" />
+                  <Button fx:id="Я_button" layoutX="68.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="34.0" text="Я" />
                </children>
             </Pane>
             <Label layoutX="1033.0" layoutY="112.0" prefHeight="31.0" prefWidth="156.0" text="Ввод буквы" textFill="#d1c2c2">

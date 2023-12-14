@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import DB.DatabaseHandler;
 import DB.NowLogInUser;
 import javafx.animation.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -189,7 +190,7 @@ public class GamePoleChudesController {
     private AtomicBoolean gameWon = new AtomicBoolean(false);
     private List<String> playersList = new ArrayList<>();
     private int currentPlayerIndex = 0;
-
+    private boolean letterChosen = false;
     @FXML
     void initialize() {
        // AtomicBoolean gameWon = new AtomicBoolean(false);
@@ -297,6 +298,7 @@ public class GamePoleChudesController {
                     // Если ответ правильный, выводим сообщение о победе и делаем кнопку repeatGameButton видимой
                     String currentPlayer = playersList.get(currentPlayerIndex);
                     system_field.setText("Победил " + currentPlayer + ", поздравляем!");
+                    rightAnswer_field.setText(correctAnswer);
                     gameWon.set(true);
                     repeatGameButton.setVisible(true);
                 } else {
@@ -310,6 +312,7 @@ public class GamePoleChudesController {
 
     // Метод для вращения барабана
     private void rotateBaraban() {
+        letterChosen = false;
         if (gameWon.get()) {
             system_field.setText("Игра закончена, нельзя крутить барабан!");
             // Если игра уже выиграна, не запускаем новую анимацию
@@ -487,5 +490,58 @@ public class GamePoleChudesController {
 
         rightAnswer_field.setText(emptyAnswer.trim());
     }
+
+    @FXML
+    private void handleButtonAction(ActionEvent event) {
+        if (gameWon.get()) {
+            // Если игра уже выиграна, не обрабатываем нажатия на кнопки
+            return;
+        }
+
+        if (letterChosen) {
+            // Если буква уже была выбрана, выводим сообщение и не обрабатываем нажатие
+            system_field.setText("Вы уже выбрали букву! Следующий игрок должен покрутить барабан!");
+            return;
+        }
+
+        // Получаем текст нажатой кнопки
+        Button clickedButton = (Button) event.getSource();
+        String buttonText = clickedButton.getText();
+        System.out.println("ETO TUT: " + buttonText);
+        DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
+        // Получаем правильный ответ
+        String correctAnswer = databaseHandler.getAnswerByQuest(quest_field.getText());
+
+        // Помечаем, что буква уже выбрана
+        letterChosen = true;
+
+        // Проверяем, содержится ли буква в правильном ответе
+        if (correctAnswer.toLowerCase().contains(buttonText.toLowerCase())) {
+            // Заменяем "_" на букву в rightAnswer_field
+            updateRightAnswerField(buttonText, correctAnswer);
+            // Делаем кнопку зеленой
+            clickedButton.setStyle("-fx-background-color: green;");
+        } else {
+            // Выводим сообщение об ошибке в system_field
+            system_field.setText("Вы не угадали!");
+            // Делаем кнопку темно-серой
+            clickedButton.setStyle("-fx-background-color: darkgray;");
+        }
+
+    }
+
+    private void updateRightAnswerField(String guessedLetter, String correctAnswer) {
+        StringBuilder updatedAnswer = new StringBuilder(rightAnswer_field.getText());
+
+        for (int i = 0; i < correctAnswer.length(); i++) {
+            if (correctAnswer.charAt(i) == guessedLetter.charAt(0)) {
+                updatedAnswer.setCharAt(i * 2, guessedLetter.charAt(0));
+            }
+        }
+
+        rightAnswer_field.setText(updatedAnswer.toString());
+    }
+
+
 
 }
