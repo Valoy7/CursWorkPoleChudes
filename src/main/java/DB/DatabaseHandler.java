@@ -345,16 +345,17 @@ public class DatabaseHandler extends Configs {
     }
 
 
-    public int getLastScore(String player) throws SQLException, ClassNotFoundException {
+    public int getLastScore(String nowUser, String player) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();
 
         // Предполагаем, что getDbConnection() - это ваш метод для получения соединения с базой данных
         Connection connection = getDbConnection();
-
-        String selectQuery = "SELECT " + Const.LAST_SCORE + " FROM " + Const.GAMERS_TABLE + " WHERE " + Const.NICKNAME + "=?";
+        int nowUserId = databaseHandler.getUserIdByName(nowUser);
+        String selectQuery = "SELECT " + Const.LAST_SCORE + " FROM " + Const.GAMERS_TABLE + " WHERE " + Const.USERS_ID + "=? AND " + Const.NICKNAME + "=?";
         PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
-        preparedStatement.setString(1, player);
 
+        preparedStatement.setInt(1, nowUserId);
+        preparedStatement.setString(2, player);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
@@ -367,17 +368,18 @@ public class DatabaseHandler extends Configs {
     }
 
 
-    public void updateScore(String player, int additionalScore) throws SQLException, ClassNotFoundException {
+    public void updateScore(String nowUser, String player, int additionalScore) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();
-        int currentScore = databaseHandler.getLastScore(player);
+        int currentScore = databaseHandler.getLastScore(nowUser, player);
         int newScore = currentScore + additionalScore;
-        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = ? WHERE " + Const.NICKNAME + " = ?";
-
+        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = ? WHERE " + Const.USERS_ID + " = ? AND " + Const.NICKNAME + " = ?";
+        int nowUserId = databaseHandler.getUserIdByName(nowUser);
         try (Connection connection = getDbConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, newScore);
-            statement.setString(2, player);
+            statement.setInt(2, nowUserId);
+            statement.setString(3, player);
             statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -386,18 +388,18 @@ public class DatabaseHandler extends Configs {
 
     }
 
-    public void bankruptScore(String player) {
+    public void bankruptScore(String nowUser, String player) {
         DatabaseHandler databaseHandler = new DatabaseHandler();
         int newScore = 0;
-        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = ? WHERE " + Const.NICKNAME + " = ?";
+        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = ? WHERE " + Const.USERS_ID + " = ? AND " + Const.NICKNAME + " = ?";
 
         try (Connection connection = getDbConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
+            int nowUserId = databaseHandler.getUserIdByName(nowUser);
             statement.setInt(1, newScore);
-            statement.setString(2, player);
+            statement.setInt(2, nowUserId);
+            statement.setString(3, player);  // Исправлено: установите значение для третьего параметра
             statement.executeUpdate();
-
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             // Обработайте ошибку в соответствии с вашими требованиями.
@@ -424,25 +426,6 @@ public class DatabaseHandler extends Configs {
         }
     }
 
-//    public static void updateGamersInOneAcc(String nowUser, String player) {
-//        DatabaseHandler databaseHandler = new DatabaseHandler();
-//        String sql = " UPDATE "+ Const.GAMERS_TABLE +" SET " + Const.LAST_SCORE + "= ? WHERE " + Const.LAST_SCORE + "= ?";
-//        String sql = "INSERT INTO " + Const.GAMERS_TABLE + " (" + Const.USERS_ID + ", " + Const.NICKNAME + ") VALUES (?, ?)";
-//
-//        try (Connection connection = databaseHandler.getDbConnection();
-//             PreparedStatement statement = connection.prepareStatement(sql)) {
-//
-//            int nowUserId = databaseHandler.getUserIdByName(nowUser);
-//
-//            statement.setInt(1, nowUserId);
-//            statement.setString(2, player);
-//
-//            statement.executeUpdate();
-//
-//        } catch (SQLException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public int getUserIdByName(String selectedUser) throws SQLException, ClassNotFoundException {
 

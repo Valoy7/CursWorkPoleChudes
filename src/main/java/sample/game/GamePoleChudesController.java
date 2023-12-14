@@ -279,6 +279,8 @@ public class GamePoleChudesController {
 
     // Метод для вращения барабана
     private void rotateBaraban() {
+        login_field.setText(NowLogInUser.getLoggedInUsername());
+        String NowUser =  NowLogInUser.getLoggedInUsername();
         Random random = new Random();
 
         // Если timeline уже был создан и он еще выполняется, не создаем новую анимацию
@@ -334,7 +336,7 @@ public class GamePoleChudesController {
             // Обновление счета для текущего игрока
             String currentPlayer = playersList.get(currentPlayerIndex);
             try {
-                handleRotationResult(sector, currentPlayer);
+                handleRotationResult(sector, currentPlayer, NowUser);
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -353,7 +355,7 @@ public class GamePoleChudesController {
         timeline.setCycleCount(1);
         timeline.play();
     }
-    private void handleRotationResult(int sector, String player) throws SQLException, ClassNotFoundException {
+    private void handleRotationResult(int sector, String player, String nowUser) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
 
         if (sector == 1) {
@@ -364,50 +366,50 @@ public class GamePoleChudesController {
             });
 
         } else if (sector == 2) {
-            databaseHandler.updateScore(player, 100);
+            databaseHandler.updateScore(nowUser, player, 100);
             system_field.setText(player + " получил 100 очков!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
 
         } else if (sector == 3) {
-            databaseHandler.updateScore(player, databaseHandler.getLastScore(player) * 2);  // Используйте экземпляр
+            databaseHandler.updateScore(nowUser, player, databaseHandler.getLastScore(nowUser,player) * 2);
             system_field.setText(player + " удвоил свои очки!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 4) {
-            databaseHandler.updateScore(player, 50);
+            databaseHandler.updateScore(nowUser,player, 50);
             system_field.setText(player + " получил 50 очков!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 5) {
-            databaseHandler.bankruptScore(player);
+            databaseHandler.bankruptScore(nowUser, player);
             system_field.setText(player + " банкрот, о нет!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         }else if (sector == 6) {
-            databaseHandler.updateScore(player, 350);
+            databaseHandler.updateScore(nowUser, player, 350);
             system_field.setText(player + " получил 350 очков, поздравляем!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 7) {
-            databaseHandler.updateScore(player, 0);
+            databaseHandler.updateScore(nowUser, player, 0);
             system_field.setText(player + " ничего не получает, ход переходит следующему игроку!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 8) {
-            databaseHandler.updateScore(player, 300);
+            databaseHandler.updateScore(nowUser, player, 300);
             system_field.setText(player + " получил 300 очков, поздравляем!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 9) {
-            databaseHandler.updateScore(player, 250);
+            databaseHandler.updateScore(nowUser, player, 250);
             system_field.setText(player + " получил 250 очков!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 10) {
-            databaseHandler.updateScore(player, 500);
+            databaseHandler.updateScore(nowUser, player, 500);
             system_field.setText("Не может быть, " + player + " получил 500 очков!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 11) {
-            databaseHandler.updateScore(player, 200);
+            databaseHandler.updateScore(nowUser, player, 200);
             system_field.setText(player + " получил 200 очков!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         } else if (sector == 0) {
-            databaseHandler.updateScore(player, 150);
+            databaseHandler.updateScore(nowUser, player, 150);
             system_field.setText(player + " получил 150 очков!");
-            chooseField(currentPlayerIndex);
+            chooseField(nowUser,currentPlayerIndex);
         }
 
     }
@@ -421,21 +423,21 @@ public class GamePoleChudesController {
         return sector;
     }
 
-    private void chooseField (int CurrPlayerIndex) throws SQLException, ClassNotFoundException {
+    private void chooseField (String nowUser, int CurrPlayerIndex) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
         String currentPlayer = playersList.get(CurrPlayerIndex);
         System.out.println("YA TUT "+ currentPlayer);
         System.out.println("ZDEC "+ CurrPlayerIndex);
         if(CurrPlayerIndex == 0) {
-            first_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+            first_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         } else if(CurrPlayerIndex == 1) {
-            second_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+            second_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         }else if(CurrPlayerIndex == 2) {
-            third_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+            third_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         }else if(CurrPlayerIndex == 3) {
-            fourth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+            fourth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         }else if(CurrPlayerIndex == 4) {
-            fifth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+            fifth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         }
 
     }
