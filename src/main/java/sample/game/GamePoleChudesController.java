@@ -222,27 +222,49 @@ public class GamePoleChudesController {
         if(firstPlayer != null && !firstPlayer.isEmpty()) {
             first_playerName_field.setText(firstPlayer);
             playersList.add(firstPlayer);
-        DatabaseHandler.addGamersInOneAcc(NowUser,firstPlayer);
+
+         if(DatabaseHandler.checkIncludeGamer(NowUser, firstPlayer) == 0) {
+             DatabaseHandler.addGamersInOneAcc(NowUser, firstPlayer);
+
+         }
+
         } else first_playerName_field.setText("");
         if(secondPlayer != null && !secondPlayer.isEmpty()) {
             second_playerName_field.setText(secondPlayer);
             playersList.add(secondPlayer);
-            DatabaseHandler.addGamersInOneAcc(NowUser,secondPlayer);
+            if(DatabaseHandler.checkIncludeGamer(NowUser, secondPlayer) == 0) {
+                DatabaseHandler.addGamersInOneAcc(NowUser,secondPlayer);
+
+            }
+
         } else second_playerName_field.setText("");
         if(thirdPlayer != null && !thirdPlayer.isEmpty()) {
             third_playerName_field.setText(thirdPlayer);
             playersList.add(thirdPlayer);
-            DatabaseHandler.addGamersInOneAcc(NowUser,thirdPlayer);
+            if(DatabaseHandler.checkIncludeGamer(NowUser, thirdPlayer) == 0) {
+                DatabaseHandler.addGamersInOneAcc(NowUser,thirdPlayer);
+
+            }
+
+
         } else third_playerName_field.setText("");
         if(fourthPlayer != null && !fourthPlayer.isEmpty()) {
             fourth_playerName_field.setText(fourthPlayer);
             playersList.add(fourthPlayer);
-            DatabaseHandler.addGamersInOneAcc(NowUser,fourthPlayer);
+            if(DatabaseHandler.checkIncludeGamer(NowUser, fourthPlayer) == 0) {
+                DatabaseHandler.addGamersInOneAcc(NowUser,fourthPlayer);
+
+            }
+
         } else fourth_playerName_field.setText("");
         if(fifthPlayer != null && !fifthPlayer.isEmpty()) {
             fifth_playerName_field.setText(fifthPlayer);
             playersList.add(fifthPlayer);
-            DatabaseHandler.addGamersInOneAcc(NowUser,fifthPlayer);
+            if(DatabaseHandler.checkIncludeGamer(NowUser, fifthPlayer) == 0) {
+                DatabaseHandler.addGamersInOneAcc(NowUser,fifthPlayer);
+
+            }
+
         } else fifth_playerName_field.setText("");
 
 

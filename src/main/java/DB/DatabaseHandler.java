@@ -424,7 +424,28 @@ public class DatabaseHandler extends Configs {
         }
     }
 
+//    public static void updateGamersInOneAcc(String nowUser, String player) {
+//        DatabaseHandler databaseHandler = new DatabaseHandler();
+//        String sql = " UPDATE "+ Const.GAMERS_TABLE +" SET " + Const.LAST_SCORE + "= ? WHERE " + Const.LAST_SCORE + "= ?";
+//        String sql = "INSERT INTO " + Const.GAMERS_TABLE + " (" + Const.USERS_ID + ", " + Const.NICKNAME + ") VALUES (?, ?)";
+//
+//        try (Connection connection = databaseHandler.getDbConnection();
+//             PreparedStatement statement = connection.prepareStatement(sql)) {
+//
+//            int nowUserId = databaseHandler.getUserIdByName(nowUser);
+//
+//            statement.setInt(1, nowUserId);
+//            statement.setString(2, player);
+//
+//            statement.executeUpdate();
+//
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public int getUserIdByName(String selectedUser) throws SQLException, ClassNotFoundException {
+
         String select = "SELECT " + Const.USERS_ID + " FROM " + Const.USER_TABLE + " WHERE " + Const.USER_NAME + "=?";
         try (PreparedStatement prSt = getDbConnection().prepareStatement(select)) {
             prSt.setString(1, selectedUser);
@@ -437,6 +458,31 @@ public class DatabaseHandler extends Configs {
             }
         }
     }
+    public static int checkIncludeGamer(String nowUser, String player) {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        String sql = "SELECT COUNT(*) FROM " + Const.GAMERS_TABLE +
+                " WHERE " + Const.USERS_ID + " = ? AND " + Const.NICKNAME + " = ?";
 
+        try (Connection connection = databaseHandler.getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            int nowUserId = databaseHandler.getUserIdByName(nowUser);
+
+            statement.setInt(1, nowUserId);
+            statement.setString(2, player);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0 ? 1 : 0;
+                }
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return 0; // В случае ошибки или если не удалось выполнить проверку
+    }
 
 }
