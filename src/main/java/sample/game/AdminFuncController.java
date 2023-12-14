@@ -140,24 +140,10 @@ public class AdminFuncController {
         // Заполняем выпадающие списки данными из БД
         fillComboBoxes();
 
-        TextFormatter<String> textFormatter = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > MAX_CHARACTERS) {
-                change.setText(change.getControlText().substring(0, MAX_CHARACTERS));
-            }
-            return change;
-        });
+        addTextLimiter(questInsert_field, MAX_CHARACTERS);
+        addTextLimiter(answerInsert_field, MAX_CHARACTERS_ANSW);
 
-        TextFormatter<String> textFormatterAnsw = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > MAX_CHARACTERS_ANSW) {
-                change.setText(change.getControlText().substring(0, MAX_CHARACTERS_ANSW));
-            }
-            return change;
-        });
         insertQuestButton.setOnAction(actionEvent -> {
-            questInsert_field.setTextFormatter(textFormatter);
-            answerInsert_field.setTextFormatter(textFormatterAnsw);
             String selectedCategory = categoryComboBox.getValue();
             String selectedComplexity = complexityComboBox.getValue();
 
@@ -420,5 +406,15 @@ public class AdminFuncController {
             e.printStackTrace();
         }
     }
+
+    public static void addTextLimiter(final TextField tf, final int maxLength) {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (tf.getText().length() > maxLength) {
+                String s = tf.getText().substring(0, maxLength);
+                tf.setText(s);
+            }
+        });
+    }
+
 
 }
