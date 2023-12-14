@@ -297,12 +297,6 @@ public class GamePoleChudesController {
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            //yourTurn_field.setText(currentPlayer);
-            // Переход к следующему игроку
-//            if(sector != 1) {
-//                currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
-//
-//            }
 
             // Вывод информации о текущем игроке (опционально)
             System.out.println("Current Player: " + currentPlayer);
@@ -494,7 +488,6 @@ public class GamePoleChudesController {
 
     private void updateRightAnswerField(String guessedLetter, String correctAnswer) {
         StringBuilder updatedAnswer = new StringBuilder(rightAnswer_field.getText());
-
         int currentPosition = 0;
 
         for (int i = 0; i < correctAnswer.length(); i++) {
@@ -502,13 +495,21 @@ public class GamePoleChudesController {
             char letter = guessedLetter.charAt(0);
 
             if (Character.toLowerCase(letter) == Character.toLowerCase(currentChar)) {
-                updatedAnswer.setCharAt(currentPosition , currentChar);
+                updatedAnswer.setCharAt(currentPosition, currentChar);
             }
 
             currentPosition++;
         }
 
         rightAnswer_field.setText(updatedAnswer.toString());
+
+        // Проверка, все ли буквы открыты
+        if (updatedAnswer.indexOf("_") == -1) {
+            String currentPlayer = playersList.get(currentPlayerIndex);
+            system_field.setText("Победил " + currentPlayer + ", поздравляем!");
+            gameWon.set(true);
+            repeatGameButton.setVisible(true);
+        }
     }
 
 
