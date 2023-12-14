@@ -368,13 +368,13 @@ public class DatabaseHandler extends Configs {
         DatabaseHandler databaseHandler = new DatabaseHandler();
         int currentScore = databaseHandler.getLastScore(player);
         int newScore = currentScore + additionalScore;
-        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = " +
-                newScore + " WHERE " + Const.NICKNAME + " = " + player;
+        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = ? WHERE " + Const.NICKNAME + " = ?";
 
         try (Connection connection = getDbConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, newScore);
+            statement.setString(2, player);
             statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -386,17 +386,18 @@ public class DatabaseHandler extends Configs {
     public void bankruptScore(String player) {
         DatabaseHandler databaseHandler = new DatabaseHandler();
         int newScore = 0;
-        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = " +
-                newScore + " WHERE " + Const.NICKNAME + " = " + player;
+        String sql = "UPDATE " + Const.GAMERS_TABLE + " SET " + Const.LAST_SCORE + " = ? WHERE " + Const.NICKNAME + " = ?";
 
         try (Connection connection = getDbConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, newScore);
+            statement.setString(2, player);
             statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            // Обработайте ошибку в соответствии с вашими требованиями.
         }
     }
 }
