@@ -108,7 +108,7 @@
                   <Font name="Corbel" size="22.0" />
                </font>
             </Label>
-            <Label fx:id="firts_playerName_field" layoutX="461.0" layoutY="453.0" prefHeight="31.0" prefWidth="142.0" text="Первый игрок" textFill="#d1c2c2">
+            <Label fx:id="first_playerName_field" layoutX="461.0" layoutY="453.0" prefHeight="31.0" prefWidth="142.0" text="Первый игрок" textFill="#d1c2c2">
                <font>
                   <Font name="Corbel" size="22.0" />
                </font>
@@ -133,7 +133,7 @@
                   <Font name="Corbel" size="22.0" />
                </font>
             </Label>
-            <Label fx:id="firts_playerScore_field" layoutX="603.0" layoutY="453.0" prefHeight="31.0" prefWidth="94.0" text="Счет:" textFill="#d1c2c2">
+            <Label fx:id="first_playerScore_field" layoutX="603.0" layoutY="453.0" prefHeight="31.0" prefWidth="94.0" text="Счет:" textFill="#d1c2c2">
                <font>
                   <Font name="Corbel" size="22.0" />
                </font>

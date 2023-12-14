@@ -68,10 +68,10 @@ public class GamePoleChudesController {
     private Label fifth_playerScore_field;
 
     @FXML
-    private Label firts_playerName_field;
+    private Label first_playerName_field;
 
     @FXML
-    private Label firts_playerScore_field;
+    private Label first_playerScore_field;
 
     @FXML
     private Label fourth_playerName_field;
@@ -193,7 +193,7 @@ public class GamePoleChudesController {
     @FXML
     void initialize() {
         login_field.setText(NowLogInUser.getLoggedInUsername());
-
+        String NowUser =  NowLogInUser.getLoggedInUsername();
         // обработчик события для кнопки кручения барабана
         baraban_img.setOnMouseClicked(event -> {
             rotateBaraban();
@@ -220,29 +220,29 @@ public class GamePoleChudesController {
 
        // System.out.println(firstPlayer);
         if(firstPlayer != null && !firstPlayer.isEmpty()) {
-        firts_playerName_field.setText(firstPlayer);
+            first_playerName_field.setText(firstPlayer);
             playersList.add(firstPlayer);
-        int maxPlayers = 1;
-        } else firts_playerName_field.setText("");
+        DatabaseHandler.addGamersInOneAcc(NowUser,firstPlayer);
+        } else first_playerName_field.setText("");
         if(secondPlayer != null && !secondPlayer.isEmpty()) {
             second_playerName_field.setText(secondPlayer);
             playersList.add(secondPlayer);
-            int maxPlayers = 2;
+            DatabaseHandler.addGamersInOneAcc(NowUser,secondPlayer);
         } else second_playerName_field.setText("");
         if(thirdPlayer != null && !thirdPlayer.isEmpty()) {
             third_playerName_field.setText(thirdPlayer);
             playersList.add(thirdPlayer);
-            int maxPlayers = 3;
+            DatabaseHandler.addGamersInOneAcc(NowUser,thirdPlayer);
         } else third_playerName_field.setText("");
         if(fourthPlayer != null && !fourthPlayer.isEmpty()) {
             fourth_playerName_field.setText(fourthPlayer);
             playersList.add(fourthPlayer);
-            int maxPlayers = 4;
+            DatabaseHandler.addGamersInOneAcc(NowUser,fourthPlayer);
         } else fourth_playerName_field.setText("");
         if(fifthPlayer != null && !fifthPlayer.isEmpty()) {
             fifth_playerName_field.setText(fifthPlayer);
             playersList.add(fifthPlayer);
-            int maxPlayers = 5;
+            DatabaseHandler.addGamersInOneAcc(NowUser,fifthPlayer);
         } else fifth_playerName_field.setText("");
 
 
@@ -320,6 +320,7 @@ public class GamePoleChudesController {
             // Переход к следующему игроку
             if(sector != 1) {
                 currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
+
             }
             // Вывод информации о текущем игроке (опционально)
             System.out.println("Current Player: " + currentPlayer);
@@ -339,51 +340,52 @@ public class GamePoleChudesController {
             baraban_img.setOnMouseClicked(event -> {
                 rotateBaraban();
             });
-            int lastSector = 1;
+
         } else if (sector == 2) {
             databaseHandler.updateScore(player, 100);
             system_field.setText(player + " получил 100 очков!");
-            int lastSector = 2;
+            chooseField(currentPlayerIndex);
+
         } else if (sector == 3) {
             databaseHandler.updateScore(player, databaseHandler.getLastScore(player) * 2);  // Используйте экземпляр
             system_field.setText(player + " удвоил свои очки!");
-            int lastSector = 3;
+            chooseField(currentPlayerIndex);
         } else if (sector == 4) {
             databaseHandler.updateScore(player, 50);
             system_field.setText(player + " получил 50 очков!");
-            int lastSector = 4;
+            chooseField(currentPlayerIndex);
         } else if (sector == 5) {
             databaseHandler.bankruptScore(player);
             system_field.setText(player + " банкрот, о нет!");
-            int lastSector = 5;
+            chooseField(currentPlayerIndex);
         }else if (sector == 6) {
             databaseHandler.updateScore(player, 350);
             system_field.setText(player + " получил 350 очков, поздравляем!");
-            int lastSector = 6;
+            chooseField(currentPlayerIndex);
         } else if (sector == 7) {
             databaseHandler.updateScore(player, 0);
             system_field.setText(player + " ничего не получает, ход переходит следующему игроку!");
-            int lastSector = 7;
+            chooseField(currentPlayerIndex);
         } else if (sector == 8) {
             databaseHandler.updateScore(player, 300);
             system_field.setText(player + " получил 300 очков, поздравляем!");
-            int lastSector = 7;
+            chooseField(currentPlayerIndex);
         } else if (sector == 9) {
             databaseHandler.updateScore(player, 250);
             system_field.setText(player + " получил 250 очков!");
-            int lastSector = 8;
+            chooseField(currentPlayerIndex);
         } else if (sector == 10) {
             databaseHandler.updateScore(player, 500);
             system_field.setText("Не может быть, " + player + " получил 500 очков!");
-            int lastSector = 9;
+            chooseField(currentPlayerIndex);
         } else if (sector == 11) {
             databaseHandler.updateScore(player, 200);
             system_field.setText(player + " получил 200 очков!");
-            int lastSector = 10;
+            chooseField(currentPlayerIndex);
         } else if (sector == 0) {
             databaseHandler.updateScore(player, 150);
             system_field.setText(player + " получил 150 очков!");
-            int lastSector = 0;
+            chooseField(currentPlayerIndex);
         }
 
     }
@@ -395,6 +397,25 @@ public class GamePoleChudesController {
         int sector = (int) (angle / 30);
 
         return sector;
+    }
+
+    private void chooseField (int CurrPlayerIndex) throws SQLException, ClassNotFoundException {
+        DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
+        String currentPlayer = playersList.get(CurrPlayerIndex);
+        System.out.println("YA TUT "+ currentPlayer);
+        System.out.println("ZDEC "+ CurrPlayerIndex);
+        if(CurrPlayerIndex == 0) {
+            first_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+        } else if(CurrPlayerIndex == 1) {
+            second_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+        }else if(CurrPlayerIndex == 2) {
+            third_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+        }else if(CurrPlayerIndex == 3) {
+            fourth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+        }else if(CurrPlayerIndex == 4) {
+            fifth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(currentPlayer)));
+        }
+
     }
 
 }

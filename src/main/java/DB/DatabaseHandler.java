@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 public class DatabaseHandler extends Configs {
     Connection dbConnection;
 
+
+
     public Connection getDbConnection()
             throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":"
@@ -364,6 +366,7 @@ public class DatabaseHandler extends Configs {
         }
     }
 
+
     public void updateScore(String player, int additionalScore) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();
         int currentScore = databaseHandler.getLastScore(player);
@@ -400,4 +403,40 @@ public class DatabaseHandler extends Configs {
             // Обработайте ошибку в соответствии с вашими требованиями.
         }
     }
+
+    public static void addGamersInOneAcc(String nowUser, String player) {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+
+        String sql = "INSERT INTO " + Const.GAMERS_TABLE + " (" + Const.USERS_ID + ", " + Const.NICKNAME + ") VALUES (?, ?)";
+
+        try (Connection connection = databaseHandler.getDbConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            int nowUserId = databaseHandler.getUserIdByName(nowUser);
+
+            statement.setInt(1, nowUserId);
+            statement.setString(2, player);
+
+            statement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getUserIdByName(String selectedUser) throws SQLException, ClassNotFoundException {
+        String select = "SELECT " + Const.USERS_ID + " FROM " + Const.USER_TABLE + " WHERE " + Const.USER_NAME + "=?";
+        try (PreparedStatement prSt = getDbConnection().prepareStatement(select)) {
+            prSt.setString(1, selectedUser);
+            ResultSet resultSet = prSt.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(Const.USERS_ID);
+            } else {
+                return 0; // Верните значение по умолчанию или бросьте исключение, в зависимости от вашей логики
+            }
+        }
+    }
+
+
 }
