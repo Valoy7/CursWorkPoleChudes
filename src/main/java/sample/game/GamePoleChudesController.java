@@ -1,5 +1,6 @@
 package sample.game;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,11 +14,15 @@ import DB.NowLogInUser;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GamePoleChudesController {
@@ -222,6 +227,27 @@ public class GamePoleChudesController {
             }
         });
 
+        repeatGameButton.setOnAction(event -> {
+            // Закрываем текущее окно
+            Stage currentStage = (Stage) repeatGameButton.getScene().getWindow();
+            currentStage.close();
+
+            // Открываем новое окно
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/game/gamePoleChudes.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Parent root = loader.getRoot();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+        });
+
     }
 
     // Метод для вращения барабана
@@ -314,7 +340,7 @@ public class GamePoleChudesController {
 
         if (sector == 1) {
 
-            system_field.setText("У " + player + " прекрасная возможность покрутить барабан еще раз!");
+            system_field.setText("У " + player + " возможность покрутить барабан еще раз! Или лучше буква?");
             baraban_img.setOnMouseClicked(event -> {
                 rotateBaraban();
             });
