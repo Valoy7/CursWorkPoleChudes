@@ -297,12 +297,12 @@ public class GamePoleChudesController {
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            yourTurn_field.setText(currentPlayer);
+            //yourTurn_field.setText(currentPlayer);
             // Переход к следующему игроку
-            if(sector != 1) {
-                currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
-
-            }
+//            if(sector != 1) {
+//                currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
+//
+//            }
 
             // Вывод информации о текущем игроке (опционально)
             System.out.println("Current Player: " + currentPlayer);
@@ -334,43 +334,73 @@ public class GamePoleChudesController {
             databaseHandler.updateScore(nowUser, player, databaseHandler.getLastScore(nowUser,player) * 2);
             system_field.setText(player + " удвоил свои очки!");
             chooseField(nowUser,currentPlayerIndex);
+
         } else if (sector == 4) {
             databaseHandler.updateScore(nowUser,player, 50);
             system_field.setText(player + " получил 50 очков!");
             chooseField(nowUser,currentPlayerIndex);
+
         } else if (sector == 5) {
             databaseHandler.bankruptScore(nowUser, player);
-            system_field.setText(player + " банкрот, о нет!");
-            chooseField(nowUser,currentPlayerIndex);
+            system_field.setText(player + " банкрот, о нет! Ход следующего!");
+            chooseField(nowUser, currentPlayerIndex);
+            canSpin = true;
+            canletterChosen = false;
+            currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
+            System.out.println("TUTOCHKI_BANCROT " + playersList.get(currentPlayerIndex));
+
+            String curPlayer = playersList.get(currentPlayerIndex);
+            yourTurn_field.setText(curPlayer);
+            canSpin = true;
+            canletterChosen = false;
+            System.out.println("Code after setText is executed" + playersList.get(currentPlayerIndex));
         }else if (sector == 6) {
             databaseHandler.updateScore(nowUser, player, 350);
             system_field.setText(player + " получил 350 очков, поздравляем!");
             chooseField(nowUser,currentPlayerIndex);
+
         } else if (sector == 7) {
             databaseHandler.updateScore(nowUser, player, 0);
             system_field.setText(player + " ничего не получает, ход переходит следующему игроку!");
-            chooseField(nowUser,currentPlayerIndex);
+            chooseField(nowUser, currentPlayerIndex);
+            canSpin = true;
+            canletterChosen = false;
+            currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
+            System.out.println("TUTOCHKI" + playersList.get(currentPlayerIndex));
+
+            String curPlayer = playersList.get(currentPlayerIndex);
+            yourTurn_field.setText(curPlayer);
+            canSpin = true;
+            canletterChosen = false;
+
+            System.out.println("Code after setText is executed" + playersList.get(currentPlayerIndex));
         } else if (sector == 8) {
             databaseHandler.updateScore(nowUser, player, 300);
             system_field.setText(player + " получил 300 очков, поздравляем!");
             chooseField(nowUser,currentPlayerIndex);
+
         } else if (sector == 9) {
             databaseHandler.updateScore(nowUser, player, 250);
             system_field.setText(player + " получил 250 очков!");
             chooseField(nowUser,currentPlayerIndex);
+
         } else if (sector == 10) {
             databaseHandler.updateScore(nowUser, player, 500);
             system_field.setText("Не может быть, " + player + " получил 500 очков!");
             chooseField(nowUser,currentPlayerIndex);
+
         } else if (sector == 11) {
             databaseHandler.updateScore(nowUser, player, 200);
             system_field.setText(player + " получил 200 очков!");
             chooseField(nowUser,currentPlayerIndex);
+
         } else if (sector == 0) {
             databaseHandler.updateScore(nowUser, player, 150);
             system_field.setText(player + " получил 150 очков!");
             chooseField(nowUser,currentPlayerIndex);
+
         }
+
 
     }
     private int getSector(double angle) {
@@ -451,7 +481,9 @@ public class GamePoleChudesController {
             canSpin = true;
         } else {
             // Выводим сообщение об ошибке в system_field
-            system_field.setText("Вы не угадали!");
+            system_field.setText("Вы не угадали! Переход хода!");
+            currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
+            yourTurn_field.setText(playersList.get(currentPlayerIndex));
             // Делаем кнопку темно-серой
             clickedButton.setStyle("-fx-background-color: darkgray;");
             letterChosen = true;
