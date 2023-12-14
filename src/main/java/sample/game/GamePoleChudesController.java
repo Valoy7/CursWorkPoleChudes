@@ -189,7 +189,7 @@ public class GamePoleChudesController {
 
     private List<String> playersList = new ArrayList<>();
     private int currentPlayerIndex = 0;
-    private int lastSector;
+
     @FXML
     void initialize() {
         login_field.setText(NowLogInUser.getLoggedInUsername());
@@ -207,7 +207,8 @@ public class GamePoleChudesController {
 
         // Вызываем метод getRandomQuestion через созданный экземпляр
         String nowQuest = databaseHandler.getRandomQuestion(complexity);
-
+        String nowAnswer = databaseHandler.getAnswerByQuest(nowQuest);
+        System.out.println("ETO OTVET: " + nowAnswer);
         // Предположим, что quest_field - это TextField, но замените на соответствующий тип элемента интерфейса
         quest_field.setText(nowQuest);
 

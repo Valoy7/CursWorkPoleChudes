@@ -468,4 +468,28 @@ public class DatabaseHandler extends Configs {
         return 0; // В случае ошибки или если не удалось выполнить проверку
     }
 
+    public String getAnswerByQuest(String nowQuest) {
+        String answerText = null;
+
+        // Предполагаем, что getDbConnection() - это ваш метод для получения соединения с базой данных
+        try (Connection connection = getDbConnection()) {
+            String selectQuery = "SELECT " + Const.ANSWER_TEXT + " FROM " + Const.QUEST_TABLE + " WHERE " + Const.QUEST_TEXT + "=?";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+                preparedStatement.setString(1, nowQuest);
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        // Получаем значение из колонки ANSWER_TEXT
+                        answerText = resultSet.getString(Const.ANSWER_TEXT);
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            // Обработка ошибок, если необходимо
+        }
+
+        return answerText;
+    }
 }
