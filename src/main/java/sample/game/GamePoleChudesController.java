@@ -120,7 +120,7 @@ public class GamePoleChudesController {
     //private boolean letterChosen = false; // флаг, указывающий, была ли выбрана буква
     @FXML
     <ScoreRecord>
-    void initialize() {
+    void initialize() throws SQLException, ClassNotFoundException {
        // AtomicBoolean gameWon = new AtomicBoolean(false);
         login_field.setText(NowLogInUser.getLoggedInUsername());
         String NowUser =  NowLogInUser.getLoggedInUsername();
@@ -170,6 +170,7 @@ public class GamePoleChudesController {
              DatabaseHandler.addGamersInOneAcc(NowUser, firstPlayer);
 
          }
+            databaseHandler.resetLastScore(firstPlayer, NowUser);
 
         } else first_playerName_field.setText("");
         if(secondPlayer != null && !secondPlayer.isEmpty()) {
@@ -179,7 +180,7 @@ public class GamePoleChudesController {
                 DatabaseHandler.addGamersInOneAcc(NowUser,secondPlayer);
 
             }
-
+            databaseHandler.resetLastScore(secondPlayer, NowUser);
         } else second_playerName_field.setText("");
         if(thirdPlayer != null && !thirdPlayer.isEmpty()) {
             third_playerName_field.setText(thirdPlayer);
@@ -188,7 +189,7 @@ public class GamePoleChudesController {
                 DatabaseHandler.addGamersInOneAcc(NowUser,thirdPlayer);
 
             }
-
+            databaseHandler.resetLastScore(thirdPlayer, NowUser);
 
         } else third_playerName_field.setText("");
         if(fourthPlayer != null && !fourthPlayer.isEmpty()) {
@@ -198,14 +199,14 @@ public class GamePoleChudesController {
                 DatabaseHandler.addGamersInOneAcc(NowUser,fourthPlayer);
 
             }
-
+            databaseHandler.resetLastScore(fourthPlayer, NowUser);
         } else fourth_playerName_field.setText("");
         if(fifthPlayer != null && !fifthPlayer.isEmpty()) {
             fifth_playerName_field.setText(fifthPlayer);
             playersList.add(fifthPlayer);
             if(DatabaseHandler.checkIncludeGamer(NowUser, fifthPlayer) == 0) {
                 DatabaseHandler.addGamersInOneAcc(NowUser,fifthPlayer);
-
+                databaseHandler.resetLastScore(fifthPlayer, NowUser);
             }
 
         } else fifth_playerName_field.setText("");

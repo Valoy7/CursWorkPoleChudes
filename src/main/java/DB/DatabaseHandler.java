@@ -605,4 +605,36 @@ public class DatabaseHandler extends Configs {
         PreparedStatement prSt = getDbConnection().prepareStatement(query);
         return prSt.executeQuery();
     }
+
+
+    public void resetLastScore(String player, String nowUser) throws SQLException, ClassNotFoundException {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        Connection connection = databaseHandler.getDbConnection();
+
+
+        PreparedStatement preparedStatement = null;
+        int nowUserId = databaseHandler.getUserIdByName(nowUser);
+        try {
+            // Обновление значения LAST_SCORE в таблице GAMERS_TABLE
+            String updateQuery = "UPDATE " + Const.GAMERS_TABLE + " SET " +
+                    Const.LAST_SCORE + " = 0 " +
+                    "WHERE " + Const.NICKNAME + " = ? AND " +
+                    Const.USERS_ID + " = ?";
+
+            preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setString(1, player);
+            preparedStatement.setInt(2, nowUserId);
+
+            preparedStatement.executeUpdate();
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+
+
 }
