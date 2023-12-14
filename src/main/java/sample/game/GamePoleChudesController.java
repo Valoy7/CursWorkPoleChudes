@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.text.Normalizer;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import DB.DatabaseHandler;
 import DB.NowLogInUser;
 import javafx.animation.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +20,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class GamePoleChudesController {
-
+    @FXML
+    private Button repeatGameButton;
     @FXML
     private ResourceBundle resources;
 
@@ -187,14 +186,16 @@ public class GamePoleChudesController {
     private Button Я_button;
     @FXML
     private Label login_field;
-
+    private AtomicBoolean gameWon = new AtomicBoolean(false);
     private List<String> playersList = new ArrayList<>();
     private int currentPlayerIndex = 0;
 
     @FXML
     void initialize() {
+       // AtomicBoolean gameWon = new AtomicBoolean(false);
         login_field.setText(NowLogInUser.getLoggedInUsername());
         String NowUser =  NowLogInUser.getLoggedInUsername();
+
         // обработчик события для кнопки кручения барабана
         baraban_img.setOnMouseClicked(event -> {
             rotateBaraban();
@@ -220,6 +221,7 @@ public class GamePoleChudesController {
         String thirdPlayer = NowPlayers.getThirdPlayer();
         String fourthPlayer = NowPlayers.getFourthPlayer();
         String fifthPlayer = NowPlayers.getFifthPlayer();
+        yourTurn_field.setText(firstPlayer);
 
        // System.out.println(firstPlayer);
         if(firstPlayer != null && !firstPlayer.isEmpty()) {
@@ -278,10 +280,41 @@ public class GamePoleChudesController {
         });
 
 
+        checkAnswerButton.setOnAction(event -> {
+            // Получаем значение из поля fullAnswer_field
+            String userAnswer = fullAnswer_field.getText().trim();
+
+            // Проверка на пустоту
+            if (userAnswer.isEmpty()) {
+                // Если поле пустое, выводим сообщение в system_field
+                system_field.setText("Введите слово целиком!");
+            } else {
+                // Получаем правильный ответ из базы данных
+                String correctAnswer = databaseHandler.getAnswerByQuest(quest_field.getText());
+
+                // Сравниваем введенный ответ с правильным
+                if (userAnswer.equalsIgnoreCase(correctAnswer)) {
+                    // Если ответ правильный, выводим сообщение о победе и делаем кнопку repeatGameButton видимой
+                    String currentPlayer = playersList.get(currentPlayerIndex);
+                    system_field.setText("Победил " + currentPlayer + ", поздравляем!");
+                    gameWon.set(true);
+                    repeatGameButton.setVisible(true);
+                } else {
+                    // Если ответ неверный, выводим сообщение в system_field
+                    system_field.setText("Неверный ответ. Попробуйте еще раз.");
+                }
+            }
+        });
+
     }
 
     // Метод для вращения барабана
     private void rotateBaraban() {
+        if (gameWon.get()) {
+            system_field.setText("Игра закончена, нельзя крутить барабан!");
+            // Если игра уже выиграна, не запускаем новую анимацию
+            return;
+        }
         login_field.setText(NowLogInUser.getLoggedInUsername());
         String NowUser =  NowLogInUser.getLoggedInUsername();
         Random random = new Random();
@@ -338,17 +371,19 @@ public class GamePoleChudesController {
 
             // Обновление счета для текущего игрока
             String currentPlayer = playersList.get(currentPlayerIndex);
+
             try {
                 handleRotationResult(sector, currentPlayer, NowUser);
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
+            yourTurn_field.setText(currentPlayer);
             // Переход к следующему игроку
             if(sector != 1) {
                 currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
 
             }
+
             // Вывод информации о текущем игроке (опционально)
             System.out.println("Current Player: " + currentPlayer);
         });
@@ -449,7 +484,7 @@ public class GamePoleChudesController {
         // Заменяем только буквы на символы " _ "
         String emptyAnswer = nowAnswer.replaceAll("[а-яА-ЯёЁ]", "_ ");
 
-        // Предполагаем, что rightAnswer_field - это ваш элемент интерфейса (TextField или что-то подобное)
+
         rightAnswer_field.setText(emptyAnswer.trim());
     }
 
