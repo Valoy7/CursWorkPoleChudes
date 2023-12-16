@@ -216,13 +216,6 @@ public class MenuGameController {
             }
         });
 
-//        complexityDropDownButton.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue == null) {
-//                // Если ничего не выбрано, выберем сложность случайным образом
-//                ObservableList<String> items = complexityDropDownButton.getItems();
-//                complexityDropDownButton.setValue(items.get((int) (Math.random() * items.size())));
-//            }
-//        });
 
     }
     // Методы для установки и сброса красной рамки
