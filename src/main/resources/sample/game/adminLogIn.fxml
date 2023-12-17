@@ -35,6 +35,11 @@
                </effect>
             </ImageView>
             <PasswordField fx:id="password_field" layoutX="565.0" layoutY="124.0" prefHeight="26.0" prefWidth="150.0" promptText="Пароль" />
+            <Label fx:id="errorDB_field" layoutX="78.0" layoutY="294.0" prefHeight="48.0" prefWidth="916.0" textFill="#f73434">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
             </children></AnchorPane>
         <Label layoutX="537.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>

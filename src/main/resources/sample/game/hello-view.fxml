@@ -20,6 +20,11 @@
             <Button fx:id="authLogInButton" layoutX="593.0" layoutY="171.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Войти" />
             <PasswordField fx:id="password_field" layoutX="565.0" layoutY="123.0" prefHeight="26.0" prefWidth="150.0" promptText="Пароль" />
             <Button fx:id="signUpButton" layoutX="576.0" layoutY="216.0" mnemonicParsing="false" text="Зарегистрироваться" />
+            <Label fx:id="errorDB_field" layoutX="182.0" layoutY="274.0" prefHeight="48.0" prefWidth="916.0" textFill="#f73434">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
       <Label layoutX="537.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
          <font>
@@ -27,5 +32,6 @@
          </font>
       </Label>
       <Button fx:id="adminLogInButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Администратор" />
+      <Button fx:id="returnBD_button" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" text="Ввести данные для БД снова" />
    </children>
 </AnchorPane>

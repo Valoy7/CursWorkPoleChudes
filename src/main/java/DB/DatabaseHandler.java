@@ -6,17 +6,21 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class DatabaseHandler extends Configs {
+
     Connection dbConnection;
 
 
+    public Connection getDbConnection() throws ClassNotFoundException, SQLException {
 
-    public Connection getDbConnection()
-            throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ":"
-                + dbPort + "/" + dbName;
+
+        // Остальной код
+        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
         Class.forName("com.mysql.cj.jdbc.Driver");
-        dbConnection = DriverManager.getConnection(connectionString,
-                dbUser, dbPass);
+        System.out.println("Connecting with user: " + dbUser + ", password: " + dbPass);
+
+        // Вызываем getConnection с использованием полученных значений
+        dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+
         return dbConnection;
     }
 
