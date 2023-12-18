@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -29,10 +30,12 @@ public class SignUpController {
 
     @FXML
     private TextField password_field_register;
-
+    @FXML
+    private Label error_field;
     @FXML
     private Button signUpButton;
-
+    @FXML
+    private Label successRegister_field;
     @FXML
     private Button signUp_ReturnLobbyButton;
     private static final int MAX_CHARACTERS_USERNAME = 20;
@@ -55,13 +58,22 @@ public class SignUpController {
     }
 
     private void signUpNewUser() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-        String username = login_field_register.getText();
-        String password = password_field_register.getText();
+        String username = login_field_register.getText().trim();
+        String password = password_field_register.getText().trim();
 
-        User user = new User(username, password);
-
-        dbHandler.signUpUser(user);
+        if (username.isEmpty() || password.isEmpty()) {
+            // Если хотя бы одно поле пустое, выводим ошибку
+            error_field.setText("Неверный ввод! Заполните все поля.");
+            successRegister_field.setText("");
+        } else {
+            // Если поля не пустые, продолжаем регистрацию пользователя
+            DatabaseHandler dbHandler = new DatabaseHandler();
+            User user = new User(username, password);
+            dbHandler.signUpUser(user);
+            // Очищаем error_field, если предыдущая ошибка была отображена
+            successRegister_field.setText("Успешная регистрация!");
+            error_field.setText("");
+        }
     }
 
 }
