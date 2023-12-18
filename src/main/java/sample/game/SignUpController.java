@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import static sample.game.AdminFuncController.addTextLimiter;
+
 public class SignUpController {
 
     @FXML
@@ -33,9 +35,12 @@ public class SignUpController {
 
     @FXML
     private Button signUp_ReturnLobbyButton;
-
+    private static final int MAX_CHARACTERS_USERNAME = 20;
+    private static final int MAX_CHARACTERS_PASSWORD = 30;
     @FXML
     void initialize() {
+        addTextLimiter(login_field_register, MAX_CHARACTERS_USERNAME);
+        addTextLimiter(password_field_register, MAX_CHARACTERS_PASSWORD);
 
         signUpButton.setOnAction(actionEvent -> {
 
