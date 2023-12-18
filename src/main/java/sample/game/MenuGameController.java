@@ -22,6 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static sample.game.AdminFuncController.addTextLimiter;
+
 
 public class MenuGameController {
 
@@ -62,10 +64,14 @@ public class MenuGameController {
     @FXML
     private Label login_field;
 
-
+    private static final int MAX_CHARACTERS_USERNAME = 11;
     @FXML
     void initialize() {
-
+        addTextLimiter(firstPlayer_field, MAX_CHARACTERS_USERNAME);
+        addTextLimiter(secondPlayer_field, MAX_CHARACTERS_USERNAME);
+        addTextLimiter(thirdPlayer_field, MAX_CHARACTERS_USERNAME);
+        addTextLimiter(fourthPlayer_field, MAX_CHARACTERS_USERNAME);
+        addTextLimiter(fifthPlayer_field, MAX_CHARACTERS_USERNAME);
         login_field.setText(NowLogInUser.getLoggedInUsername());
 
 

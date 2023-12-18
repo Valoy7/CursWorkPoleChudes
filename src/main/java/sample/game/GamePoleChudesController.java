@@ -220,6 +220,11 @@ public class GamePoleChudesController {
 
 
         checkAnswerButton.setOnAction(event -> {
+            if (gameWon.get()) {
+                system_field.setText("Игра уже выиграна!");
+                // Если игра уже выиграна, не обрабатываем нажатия на кнопки
+                return;
+            }
             if(canSpin) {
                 // Получаем значение из поля fullAnswer_field
 
