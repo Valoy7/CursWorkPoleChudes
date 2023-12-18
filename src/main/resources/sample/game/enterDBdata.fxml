@@ -33,6 +33,11 @@
                   <Font name="Corbel" size="26.0" />
                </font>
             </Label>
+            <Label fx:id="errorDB_field" layoutX="449.0" layoutY="338.0" prefHeight="31.0" prefWidth="382.0" textFill="#ff2121">
+               <font>
+                  <Font name="Corbel" size="26.0" />
+               </font>
+            </Label>
             </children></AnchorPane>
         <Label layoutX="537.0" layoutY="77.0" prefHeight="23.0" prefWidth="206.0" text="Поле чудес" textFill="WHITE">
             <font>

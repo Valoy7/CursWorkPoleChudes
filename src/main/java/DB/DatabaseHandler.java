@@ -16,7 +16,7 @@ public class DatabaseHandler extends Configs {
         // Остальной код
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
         Class.forName("com.mysql.cj.jdbc.Driver");
-        System.out.println("Connecting with user: " + dbUser + ", password: " + dbPass);
+       // System.out.println("Connecting with user: " + dbUser + ", password: " + dbPass);
 
         // Вызываем getConnection с использованием полученных значений
         dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);

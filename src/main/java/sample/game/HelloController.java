@@ -39,7 +39,8 @@ public class HelloController {
 
     @FXML
     private Button signUpButton;
-
+    @FXML
+    private Button returnBD_button;
     @FXML
     void initialize() {
     //кнопка "войти"
@@ -56,6 +57,9 @@ public class HelloController {
         //кнопка "зарегистрироваться"
         signUpButton.setOnAction(actionEvent -> {
             openNewScene("/sample/game/SignUp.fxml");
+        });
+        returnBD_button.setOnAction(actionEvent -> {
+            openNewScene("/sample/game/enterDBdata.fxml");
         });
 
         adminLogInButton.setOnAction(actionEvent -> {
