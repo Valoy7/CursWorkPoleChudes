@@ -149,7 +149,7 @@ public class GamePoleChudesController {
         String nowQuest = databaseHandler.getRandomQuestion(complexity);
         String nowAnswer = databaseHandler.getAnswerByQuest(nowQuest);
 
-        // Предположим, что quest_field - это TextField, но замените на соответствующий тип элемента интерфейса
+
         quest_field.setText(nowQuest);
         displayEmptyAnswer(nowAnswer);
 
@@ -246,7 +246,15 @@ public class GamePoleChudesController {
                     String currentPlayer = playersList.get(currentPlayerIndex);
                     system_field.setText("Победил " + currentPlayer + ", поздравляем!");
                     rightAnswer_field.setText(correctAnswer);
+
                     gameWon.set(true);
+                    try {
+                        maxScore(NowUser);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                     repeatGameButton.setVisible(true);
                     look_score_button.setVisible(true);
                 } else {
@@ -464,7 +472,7 @@ public class GamePoleChudesController {
             canSpin = true;
             canletterChosen = false;
             currentPlayerIndex = (currentPlayerIndex + 1) % playersList.size();
-            System.out.println("TUTOCHKI" + playersList.get(currentPlayerIndex));
+            //System.out.println("TUTOCHKI" + playersList.get(currentPlayerIndex));
 
             String curPlayer = playersList.get(currentPlayerIndex);
             yourTurn_field.setText(curPlayer);
@@ -514,17 +522,20 @@ public class GamePoleChudesController {
     private void chooseField (String nowUser, int CurrPlayerIndex) throws SQLException, ClassNotFoundException {
         DatabaseHandler databaseHandler = new DatabaseHandler();  // Создайте экземпляр
         String currentPlayer = playersList.get(CurrPlayerIndex);
+//        if (gameWon.get()) {
+//        int last_score = databaseHandler.getLastScore(nowUser, currentPlayer);
+//
+//
+//            Integer maxScore = databaseHandler.getMaxScore(nowUser, currentPlayer);
+//
+//            if (maxScore == null) {
+//                databaseHandler.insertMaxScore(nowUser, currentPlayer, last_score);
+//            }
+//            if (last_score >= maxScore) {
+//                databaseHandler.updateMaxScore(nowUser, currentPlayer, last_score);
+//            }
+//        }
 
-        int last_score = databaseHandler.getLastScore(nowUser, currentPlayer);
-
-        Integer maxScore = databaseHandler.getMaxScore(nowUser, currentPlayer);
-
-        if (maxScore == null) {
-            databaseHandler.insertMaxScore(nowUser, currentPlayer, last_score);
-        }
-        if (last_score >= maxScore) {
-            databaseHandler.updateMaxScore(nowUser, currentPlayer, last_score);
-        }
         if(CurrPlayerIndex == 0) {
             first_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         } else if(CurrPlayerIndex == 1) {
@@ -537,6 +548,24 @@ public class GamePoleChudesController {
             fifth_playerScore_field.setText(String.valueOf(databaseHandler.getLastScore(nowUser, currentPlayer)));
         }
 
+    }
+
+    public void maxScore(String nowUser) throws SQLException, ClassNotFoundException {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        for (String currentPlayer : playersList) {
+            if (gameWon.get()) {
+                int last_score = databaseHandler.getLastScore(nowUser, currentPlayer);
+
+                Integer maxScore = databaseHandler.getMaxScore(nowUser, currentPlayer);
+
+                if (maxScore == null) {
+                    databaseHandler.insertMaxScore(nowUser, currentPlayer, last_score);
+                }
+                if (last_score >= maxScore) {
+                    databaseHandler.updateMaxScore(nowUser, currentPlayer, last_score);
+                }
+            }
+        }
     }
 
     public void displayEmptyAnswer(String nowAnswer) {
@@ -600,6 +629,7 @@ public class GamePoleChudesController {
     }
 
     private void updateRightAnswerField(String guessedLetter, String correctAnswer) {
+        String nowUser =  NowLogInUser.getLoggedInUsername();
         StringBuilder updatedAnswer = new StringBuilder(rightAnswer_field.getText());
         int currentPosition = 0;
 
@@ -621,6 +651,13 @@ public class GamePoleChudesController {
             String currentPlayer = playersList.get(currentPlayerIndex);
             system_field.setText("Победил " + currentPlayer + ", поздравляем!");
             gameWon.set(true);
+            try {
+                maxScore(nowUser);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             repeatGameButton.setVisible(true);
             look_score_button.setVisible(true);
         }
