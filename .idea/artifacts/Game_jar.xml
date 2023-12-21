@@ -3,17 +3,30 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Game_jar</output-path>
     <root id="archive" name="Game.jar">
       <element id="module-output" name="Game" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21-ea+24/javafx-controls-21-ea+24.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21-ea+24/javafx-graphics-21-ea+24.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21-ea+24/javafx-controls-21-ea+24-win.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.11.4/protobuf-java-3.11.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/21-ea+24/javafx-base-21-ea+24.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/21-ea+24/javafx-base-21-ea+24-win.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21-ea+24/javafx-fxml-21-ea+24.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21-ea+24/javafx-graphics-21-ea+24.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/21-ea+24/javafx-base-21-ea+24.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21-ea+24/javafx-graphics-21-ea+24-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.23/mysql-connector-java-8.0.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21-ea+24/javafx-controls-21-ea+24-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21-ea+24/javafx-fxml-21-ea+24-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.11.4/protobuf-java-3.11.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21-ea+24/javafx-controls-21-ea+24.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21-ea+24/javafx-fxml-21-ea+24.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/saproc.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/serialver.exe" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/splashscreen.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/sspi_bridge.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/sunmscapi.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/syslookup.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/ucrtbase.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/vcruntime140.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/vcruntime140_1.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/verify.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/w2k_lsa_auth.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/windowsaccessbridge-64.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/zip.dll" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/server/jvm.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/api-ms-win-core-console-l1-1-0.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/api-ms-win-core-console-l1-2-0.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/api-ms-win-core-datetime-l1-1-0.dll" />
@@ -77,29 +90,6 @@
       <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/jpackage.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/jsound.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/jsvml.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/lcms.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/le.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/management.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/management_agent.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/management_ext.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/mlib_image.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/msvcp140.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/net.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/nio.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/prefs.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/rmi.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/saproc.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/splashscreen.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/sspi_bridge.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/sunmscapi.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/syslookup.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/ucrtbase.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/vcruntime140.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/vcruntime140_1.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/verify.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/w2k_lsa_auth.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/windowsaccessbridge-64.dll" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../jdk-21/bin/zip.dll" />
     </root>
   </artifact>
 </component>

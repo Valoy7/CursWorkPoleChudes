@@ -19,16 +19,16 @@ public class Configs {
     public static void setDBUserAndPass(String loginText, String loginPassword) {
         setDbUser(loginText);
         setDbPass(loginPassword);
-        System.out.println(getDbUser() + ", " + getDbPass());
+
     }
 
     public static String getDbUser() {
-        System.out.println("пасс " + dbPass);
+
         return dbUser;
     }
 
     public static String getDbPass() {
-        System.out.println(dbUser + " юзер");
+
         return dbPass;
     }
 }
