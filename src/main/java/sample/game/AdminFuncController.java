@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import DB.*;
 import javafx.fxml.FXML;
@@ -17,8 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AdminFuncController {
 
-    private static final int MAX_CHARACTERS = 80;
-    private static final int MAX_CHARACTERS_ANSW = 50;
+    private static final int MAX_CHARACTERS = 70;
+    private static final int MAX_CHARACTERS_ANSW = 20;
     @FXML
     private ResourceBundle resources;
 
@@ -148,27 +149,42 @@ public class AdminFuncController {
             String selectedComplexity = complexityComboBox.getValue();
 
             String insertQuest = questInsert_field.getText();
-            String insertAnswer = answerInsert_field.getText();
+
 
             // Получаем id категории и сложности из БД
             int categoryId = getCategoryId(selectedCategory);
-            int complexityId = getComplexityId(selectedComplexity);
+            // Регулярное выражение для проверки наличия только русских букв и пробелов
+            String russianLettersRegexWithSpaces = "^[а-яА-ЯёЁ\\s]+$";
 
-            // Проверяем, что категория и сложность существуют
-            if (categoryId != -1 && complexityId != -1) {
-                error_field.setText("");
-                // Вызываем метод для вставки данных в БД
-                DatabaseHandler databaseHandler = new DatabaseHandler();
-                databaseHandler.insertQuest(insertQuest, insertAnswer, String.valueOf(complexityId), String.valueOf(categoryId));
-                updateTableQuests();
-                // Обновляем выпадающий список категорий
-                fillComboBoxes();
-                answerInsert_field.setText("");
-                questInsert_field.setText("");
+// Проверка с использованием регулярного выражения
+            if (Pattern.matches(russianLettersRegexWithSpaces, answerInsert_field.getText())) {
+                // Если строка состоит только из русских букв и пробелов
+                String insertAnswer = answerInsert_field.getText();
+
+                int complexityId = getComplexityId(selectedComplexity);
+
+                // Проверяем, что категория и сложность существуют
+                if (categoryId != -1 && complexityId != -1) {
+                    error_field.setText("");
+                    // Вызываем метод для вставки данных в БД
+                    DatabaseHandler databaseHandler = new DatabaseHandler();
+                    databaseHandler.insertQuest(insertQuest, insertAnswer, String.valueOf(complexityId), String.valueOf(categoryId));
+                    updateTableQuests();
+                    // Обновляем выпадающий список категорий
+                    fillComboBoxes();
+                    answerInsert_field.setText("");
+                    questInsert_field.setText("");
+                } else {
+                    // Если категория или сложность не существует, выводим сообщение об ошибке
+                    error_field.setText("Ошибка добавления! Несуществующая категория или сложность.");
+                }
+
             } else {
-                // Если категория или сложность не существует, выводим сообщение об ошибке
-                error_field.setText("Ошибка добавления! Несуществующая категория или сложность.");
+                // Если в строке есть не русские буквы или другие символы, кроме пробелов
+                error_field.setText("Можно вводить только русские буквы и пробелы!");
             }
+
+
 
         });
 

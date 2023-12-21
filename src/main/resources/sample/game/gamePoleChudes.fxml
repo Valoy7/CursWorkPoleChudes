@@ -99,7 +99,7 @@
                   <Font name="Corbel" size="22.0" />
                </font>
             </Label>
-            <Label fx:id="rightAnswer_field" layoutX="560.0" layoutY="127.0" prefHeight="31.0" prefWidth="320.0" textFill="#d1c2c2">
+            <Label fx:id="rightAnswer_field" layoutX="560.0" layoutY="127.0" prefHeight="36.0" prefWidth="426.0" textFill="#d1c2c2">
                <font>
                   <Font name="Corbel" size="30.0" />
                </font>
